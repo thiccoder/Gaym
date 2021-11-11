@@ -27,7 +27,7 @@ public class TerrainGrid
     public Stack<Vector2Int> FindPath(Vector2Int from, Vector2Int to, TerrainType moveType = TerrainType.All)
     {
         List<Vector2Int> visited = new List<Vector2Int>();
-        List<Node> active = new List<Node>
+        List<Node> active = new List<Node>()
         {
             new Node(from, 0, Mathf.Abs((to - from).y) + Mathf.Abs((to - from).y), null)
         };
@@ -46,21 +46,20 @@ public class TerrainGrid
 
             if (current.Position.Equals(to))
             {
-                var res = new List<Vector2Int>();
+                var res = new Stack<Vector2Int>();
                 while (current.Parent != null)
                 {
-                    res.Add(current.Position);
+                    res.Push(current.Position);
                     current = current.Parent;
                 }
-                res.Add(from);
-                res.Reverse();
-                return new Stack<Vector2Int> (res.ToArray());
+                res.Push(from);
+                return res;
             }
             foreach (Vector2Int position in NeighborsTemplate)
             {
                 Vector2Int nodePosition = position + current.Position;
-                nodePosition.x = Mathf.Max(Mathf.Min(nodePosition.x, MainTexture.Resolution.x - 1), 0);
-                nodePosition.y = Mathf.Max(Mathf.Min(nodePosition.y, MainTexture.Resolution.y - 1), 0);
+                nodePosition.x %= MainTexture.Resolution.x;
+                nodePosition.y %= MainTexture.Resolution.y;
                 if (visited.Contains(nodePosition)) continue;
                 Vector2Int delta = to - nodePosition;
                 float traverseDistance = current.TraverseDistance + 1;

@@ -71,11 +71,6 @@ namespace Globals
             return null;
         }
     }
-    public enum TargetType
-    { 
-        Point = 0,
-        Object = 1
-    }
     public class Node
     {
         public Node(Vector2Int position, float traverseDist, float heuristicDist, Node parent)
@@ -110,7 +105,7 @@ namespace Globals
         [HideInInspector]
         public string id;
         [HideInInspector]
-        public TargetType targetType;
+        public bool IsObjectTargeted;
         [HideInInspector]
         public bool completed;
         [HideInInspector]

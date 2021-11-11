@@ -6,7 +6,7 @@ public class MouseSelectable : MonoBehaviour
     public GameObject SelectionCirclePrefab;
     private Stats stats;
     private GameObject Circle;
-    void Start()
+    public void Start()
     {
         stats = GetComponentInParent<Stats>();
     }
@@ -21,7 +21,7 @@ public class MouseSelectable : MonoBehaviour
         Destroy(Circle);
         Circle = null;
     }
-    void Update()
+    public void Update()
     {
         if (!(Circle is null))
         {

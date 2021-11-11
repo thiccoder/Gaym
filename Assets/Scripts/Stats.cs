@@ -22,7 +22,7 @@ public class Stats : MonoBehaviour
     public Terrain terrain;
     [HideInInspector]
     public bool isMoving = false;
-    void Start()
+    public void Start()
     {
         terrain = Terrain.activeTerrain;
         model = GetComponentInChildren<MeshRenderer>(false).gameObject;
@@ -56,7 +56,7 @@ public class Stats : MonoBehaviour
         isMoving = true;
     }
 
-    void Update()
+    public void Update()
     {
 
         h = terrain.SampleHeight(transform.position) + terrain.transform.position.y;

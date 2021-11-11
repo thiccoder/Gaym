@@ -43,7 +43,7 @@ public class World : MonoBehaviour
         Cast(false);
         return MouseObject;
     }
-    void Update()
+    public void Update()
     {
         if (isSelecting)
         {
@@ -97,14 +97,14 @@ public class World : MonoBehaviour
         return viewportBounds.Contains(camera.WorldToViewportPoint(obj.transform.position));
     }
 
-    void OnGUI()
+    public void OnGUI()
     {
         if (inSelection)
         {
 
             var rect = Utils.GetScreenRect(mousePositionStart, Input.mousePosition);
-            Utils.DrawScreenRect(rect, new Color(0.8f, 0.8f, 0.95f, 0.25f));
-            Utils.DrawScreenRectBorder(rect, 2, new Color(0.8f, 0.8f, 0.95f));
+            Utils.DrawScreenRect(rect, new Color(0.25f, 0.5f, 0.25f, 0.25f));
+            Utils.DrawScreenRectBorder(rect, 2, new Color(0.25f, 0.5f, 0.25f));
         }
     }
     public void Add(GameObject obj)

@@ -6,17 +6,11 @@ using Globals;
 
 public class OrderQueue : MonoBehaviour
 {
-    private Queue<StoredOrder> Orders;
+    private Queue<StoredOrder> Orders = new Queue<StoredOrder>();
     private Order current = null;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Orders = new Queue<StoredOrder>();
-    }
 
     // Update is called once per frame
-
-    void Update()
+    public void Update()
     {
         if ( Orders.Count != 0 && (current == null || current.completed)) 
         {

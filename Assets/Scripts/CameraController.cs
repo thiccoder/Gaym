@@ -20,14 +20,14 @@ public class CameraController : MonoBehaviour
         }
         return side;
     }
-    void Start()
+    public void Start()
     {
         if (ChildCamera.transform.parent != transform)
         {
             return;
         }
     }
-    void Update()
+    public void Update()
     {
         var horizax = Input.GetAxis("Horizontal");
         var vertax = Input.GetAxis("Vertical");

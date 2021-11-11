@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public class Move : Order
 {
     RTSTerrain terrain;
-    void Start()
+    public void Start()
     {
         id = "Omov";
         hotKey = 'M';
-        targetType = TargetType.Point;
+        IsObjectTargeted = false;
         stats = GetComponent<Stats>();
         terrain = Terrain.activeTerrain.GetComponent<RTSTerrain>();
     }
@@ -22,7 +22,7 @@ public class Move : Order
     {
         stats.SetPath(new Stack<Vector3>());
     }
-    void Update() 
+    public void Update() 
     {
         completed = !stats.isMoving;
     }
