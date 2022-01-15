@@ -38,7 +38,7 @@ public class Stats : MonoBehaviour
             Vector3[] nv = new Vector3[i];
             for (int j = 0; j < i - 1; j++)
             {
-                nv[j] = Vector3.Slerp(vectors[j + 1], vectors[j], t);
+                nv[j] = Vector3.Lerp(vectors[j + 1], vectors[j], t);
             }
             vectors = nv;
         }
@@ -49,9 +49,8 @@ public class Stats : MonoBehaviour
     {
         time = 0;
         startPosition = transform.position;
-        Path = new Vector3[path.Count + 1];
+        Path = path.ToArray();
         Path[0] = startPosition;
-        path.ToArray().CopyTo(Path, 1);
         pathIndex = 0;
         isMoving = true;
     }
