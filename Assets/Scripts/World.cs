@@ -10,7 +10,7 @@ public class World : MonoBehaviour
     private Ray ray;
     private bool inSelection = false;
     private Vector3 mousePositionStart;
-    public static List<GameObject> Selected = new List<GameObject>();
+    public static List<GameObject> Selected = new();
     public static bool isSelecting = true;
     public TMP_Text text;
     private void Cast(bool OnlyTerrain)
@@ -80,7 +80,7 @@ public class World : MonoBehaviour
                 {
                     obj.GetComponentInParent<OrderQueue>().Clear();
                 }
-                obj.GetComponentInParent<OrderQueue>().Add(new StoredOrder("Omov", new OrderTarget(GetPos())));
+                obj.GetComponentInParent<OrderQueue>().InvokeInstant(new StoredOrder(typeof(Move), new OrderTarget(GetPos())));
 
             }
         }

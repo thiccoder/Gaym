@@ -4,27 +4,59 @@ using System.Collections.Generic;
 
 public class Move : Order
 {
-    RTSTerrain terrain;
+    private RTSTerrain rtsTerrain;
+    private float time = 0;
+    private List<Vector3> Path;
+    private int pathIndex;
+    [HideInInspector]
+    public float PathLength;
+    [HideInInspector]
+    public Terrain terrain;
+    public float MoveSpeed;
+    public float TurnSpeed;
+    public TerrainType MoveType = TerrainType.Walkable;
     public void Start()
     {
-        id = "Omov";
-        hotKey = 'M';
         IsObjectTargeted = false;
-        stats = GetComponent<Stats>();
-        terrain = Terrain.activeTerrain.GetComponent<RTSTerrain>();
+        terrain = Terrain.activeTerrain;
+        rtsTerrain = terrain.GetComponent<RTSTerrain>();
+        time = 0;
+        Path = new();
+        pathIndex = 0;
     }
-    public override void Issue(OrderTarget target)
+    public override void Invoke(OrderTarget target)
     {
-        var path = terrain.FindPath(transform.position, target.Point, stats.moveType);
-        stats.SetPath(path);
+        Path = rtsTerrain.FindPath(transform.position, target.Position, MoveType);
+        time = 0;
+        string s = "playfieldpath=";
+        foreach (var point in Path)
+        {
+            s += point.ToString() + ' ';
+        }
+        Debug.Log(s);
+        pathIndex = 0;
+        PathLength = Utils.GetPathLength(Path);
+        completed = false;
     }
-    public override void Stop() 
+    public override void Abort()
     {
-        stats.SetPath(new Stack<Vector3>());
+        Path = new();
+        completed = true;
     }
-    public void Update() 
+    public void Update()
     {
-        completed = !stats.isMoving;
+        if (pathIndex >= Path.Count)
+        {
+            completed = true;
+        }
+        if (!completed)
+        {
+            transform.position = Utils.Bezier(time * MoveSpeed / PathLength, Path);
+            if (transform.position == Path[pathIndex])
+            {
+                pathIndex++;
+            }
+        }
+        time += Time.deltaTime;
     }
-    
 }

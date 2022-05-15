@@ -6,33 +6,48 @@ using Globals;
 
 public class OrderQueue : MonoBehaviour
 {
-    private Queue<StoredOrder> Orders = new Queue<StoredOrder>();
+    private readonly Queue<StoredOrder> Orders = new();
     private Order current = null;
-
-    // Update is called once per frame
     public void Update()
     {
-        if ( Orders.Count != 0 && (current == null || current.completed)) 
+        if (Orders.Count != 0 && (current is null || current.completed))
         {
-            Issue();
+            Invoke();
         }
 
     }
-    public void Add(StoredOrder ord) 
+    public void Add(StoredOrder order)
     {
-        Orders.Enqueue(ord);
+        Orders.Enqueue(order);
     }
-    public void Issue()
+    public bool Invoke()
     {
         current = Orders.Dequeue().Issue(gameObject);
+        return current is not null;
     }
-    public void Clear()
+    public bool InvokeInstant(StoredOrder order) 
     {
-        Orders.Clear();
-        if (current != null)
+        Clear();
+        Add(order);
+        return Invoke();
+    }
+    public bool Abort() 
+    {
+        if (current is not null)
         {
-            current.Stop();
+            current.Abort();
         }
         current = null;
+        return current is null;
+    }
+    public bool Clear()
+    {
+        Orders.Clear();
+        if (current is not null)
+        {
+            current.Abort();
+        }
+        current = null;
+        return Orders.Count == 0 && current is null;
     }
 }

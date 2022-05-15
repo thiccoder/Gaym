@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class Utils
 {
@@ -17,16 +18,34 @@ public static class Utils
             return _whiteTexture;
         }
     }
-
+    public static float GetPathLength(List<Vector3> path) 
+    {
+        var len = 0.0f;
+        for (int i = 1; i < path.Count - 1; i++) 
+        {
+            len += (path[i] - path[i - 1]).magnitude;
+        }
+        return len;
+    }
+    public static Vector3 Bezier(float t, List<Vector3> path)
+    {
+        for (int i = path.Count; i > 1; i--)
+        {
+            List<Vector3> nv = new(i);
+            for (int j = 0; j < i - 1; j++)
+            {
+                nv.Add(Vector3.Lerp(path[j + 1], path[j], t));
+            }
+            path = nv;
+        }
+        return path[0];
+    }
     public static Rect GetScreenRect( Vector3 screenPosition1, Vector3 screenPosition2 )
     {
-        // Move origin from bottom left to top left
         screenPosition1.y = Screen.height - screenPosition1.y;
         screenPosition2.y = Screen.height - screenPosition2.y;
-        // Calculate corners
         var topLeft = Vector3.Min( screenPosition1, screenPosition2 );
         var bottomRight = Vector3.Max( screenPosition1, screenPosition2 );
-        // Create Rect
         return Rect.MinMaxRect( topLeft.x, topLeft.y, bottomRight.x, bottomRight.y );
     }
 
@@ -38,8 +57,6 @@ public static class Utils
         var max = Vector3.Max( v1, v2 );
         min.z = camera.nearClipPlane;
         max.z = camera.farClipPlane;
-        //min.z = 0.0f;
-        //max.z = 1.0f;
 
         var bounds = new Bounds();
         bounds.SetMinMax( min, max );
@@ -55,13 +72,29 @@ public static class Utils
 
     public static void DrawScreenRectBorder( Rect rect, float thickness, Color color )
     {
-        // Top
-        Utils.DrawScreenRect( new Rect( rect.xMin, rect.yMin, rect.width, thickness ), color );
-        // Left
-        Utils.DrawScreenRect( new Rect( rect.xMin, rect.yMin, thickness, rect.height ), color );
-        // Right
-        Utils.DrawScreenRect( new Rect( rect.xMax - thickness, rect.yMin, thickness, rect.height ), color );
-        // Bottom
-        Utils.DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
+        DrawScreenRect( new Rect( rect.xMin, rect.yMin, rect.width, thickness ), color );
+        DrawScreenRect( new Rect( rect.xMin, rect.yMin, thickness, rect.height ), color );
+        DrawScreenRect( new Rect( rect.xMax - thickness, rect.yMin, thickness, rect.height ), color );
+        DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
+    }
+    public static void PaintTerrain(Terrain terrain)
+    {
+        float[,,] map = new float[terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight, 2];
+
+        for (var x = 0; x < terrain.terrainData.alphamapHeight; x++)
+        {
+            for (var y = 0; y < terrain.terrainData.alphamapWidth; y++)
+            {
+                var normY = y * 1.0f / (terrain.terrainData.alphamapWidth - 1);
+                var normX = x * 1.0f / (terrain.terrainData.alphamapHeight - 1);
+
+                var angle = terrain.terrainData.GetSteepness(normX, normY);
+
+                var frac = angle/90;
+                map[y, x, 0] = frac;
+                map[y, x, 1] = 1 - frac;
+            }
+        }
+        terrain.terrainData.SetAlphamaps(0, 0, map);
     }
 }

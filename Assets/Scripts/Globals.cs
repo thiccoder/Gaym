@@ -3,73 +3,87 @@ using UnityEngine;
 
 namespace Globals
 {
-    public static class Functions
-    {
-        public static int FourCC(string id)
-        {
-            int res = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                res += (id[i] + 1) * (i + 1);
-            }
-            return res;
-        }
-    }
     public struct OrderTarget
     {
-        public string Type;
-        public Vector3 Point;
-        public GameObject Object;
-        public OrderTarget(Vector3 Point)
+        public readonly bool IsObject;
+        public readonly Vector3 Position;
+        public readonly GameObject Object;
+        public OrderTarget(Vector3 pos)
         {
             Object = null;
-            this.Point = Point;
-            Type = "Tloc";
+            Position = pos;
+            IsObject = false;
         }
-        public OrderTarget(GameObject Object)
+        public OrderTarget(GameObject obj)
         {
-            this.Object = Object;
-            Point = Vector3.zero;
-            Type = "Tobj";
-        }
-        public dynamic Get()
-        {
-            if (Type == "Tloc")
-            {
-                return Point;
-            }
-            else if (Type == "Tobj")
-            {
-                return Object;
-            }
-            else
-            {
-                return null;
-            }
+            Object = obj;
+            Position = Vector3.zero;
+            IsObject = true;
         }
     }
     public struct StoredOrder
     {
-        public string id;
-        public OrderTarget Target;
-        public StoredOrder(string id,OrderTarget Target)
+        public readonly OrderTarget Target;
+        public readonly Type OrderType;
+        public StoredOrder(Type orderType,OrderTarget target)
         {
-            this.id = id;
-            this.Target = Target;
+            OrderType = orderType;
+            Target = target;
         }
         public Order Issue(GameObject obj)
         {
             var orders = obj.GetComponents<Order>();
             foreach (var order in orders)
             {
-                if (order.id == id)
+                if (order.GetType() == OrderType)
                 {
-                    order.Issue(Target);
+                    order.Invoke(Target);
                     return order;
                 }
             }
             return null;
         }
+    }
+    public struct StoredTexture<T> where T : Texture
+    {
+        public readonly Texture Tex;
+        public readonly bool IsPathTexture;
+        public Vector2Int Position;
+        public StoredTexture(Texture tex, Vector2Int position)
+        {
+            Tex = tex;
+            Position = position;
+            IsPathTexture = tex.GetType() == typeof(PathTexture);
+        }
+    }
+    [Flags]
+    public enum TerrainType : short
+    {
+        All = 0,
+        NonWalkable = 1,
+        NonFlyable = 2,
+        NonFloatable = 4,
+        NonBuildable = 8,
+        None = NonWalkable | NonFlyable | NonFloatable | NonBuildable,
+        Walkable = None - NonWalkable,
+        Flyable = None - NonFlyable,
+        Floatable = None - NonFloatable,
+        Buildable = None - NonBuildable,
+    }
+    public enum VisionType : byte 
+    {
+        None = 0,
+        Revealed,
+        Visible
+    }
+    public abstract class Order : MonoBehaviour
+    {
+        [HideInInspector]
+        public bool IsObjectTargeted;
+        [HideInInspector]
+        public bool completed = false;
+        public abstract void Invoke(OrderTarget target);
+        public abstract void Abort();
     }
     public class Node
     {
@@ -85,33 +99,5 @@ namespace Globals
         public float TraverseDistance { get; }
         public float EstimatedTotalCost { get; }
         public Node Parent { get; }
-    }
-    [Flags]
-    public enum TerrainType : byte
-    {
-        All = 0,
-        NonWalkable = 1,
-        NonFlyable = 2,
-        NonFloatable = 4,
-        NonBuildable = 8,
-        None = NonWalkable | NonFlyable | NonFloatable | NonBuildable,
-        Walkable = None - NonWalkable,
-        Flyable = None - NonFlyable,
-        Floatable = None - NonFloatable,
-        Buildable = None - NonBuildable,
-    }
-    public class Order : MonoBehaviour
-    {
-        [HideInInspector]
-        public string id;
-        [HideInInspector]
-        public bool IsObjectTargeted;
-        [HideInInspector]
-        public bool completed;
-        [HideInInspector]
-        public char hotKey = default;
-        protected Stats stats;
-        public virtual void Issue(OrderTarget target) { }
-        public virtual void Stop() { }
     }
 }

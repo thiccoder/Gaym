@@ -1,77 +1,58 @@
-﻿using UnityEngine;
-using Globals;
-using System.Collections.Generic;
+﻿using Globals;
+using System;
+using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    private int storedTextureIndex = -1;
     private GameObject model;
-    private float time = 0;
+    private float accumulator;
     public float Height;
-    public float MoveSpeed;
-    public float deltaHeight;
-    public float RotateSpeed;
-    public TerrainType moveType = TerrainType.Walkable;
-    private Vector3[] Path;
-    private Vector3 startPosition;
-    private int pathIndex;
-    [HideInInspector]
-    public float _h;
+    public float DeltaHeight;
+    public Texture2D PathingTexture;
+    public float PathUpdatePeriod = 1;
     [HideInInspector]
     public float h = 0;
     [HideInInspector]
     public Terrain terrain;
-    [HideInInspector]
-    public bool isMoving = false;
+    private RTSTerrain rtsTerrain;
+    private void CreatePathTexture()
+    {
+        StoredTexture<PathTexture> ptx = new(PathTexture.FromTexture2D(PathingTexture), rtsTerrain.WorldToGridPosition(transform.position));
+        rtsTerrain.Overlapper.Textures.Add(ptx);
+        storedTextureIndex = rtsTerrain.Overlapper.Textures.Count - 1;
+    }
     public void Start()
     {
         terrain = Terrain.activeTerrain;
         model = GetComponentInChildren<MeshRenderer>(false).gameObject;
-        time = 0;
-        startPosition = transform.position;
-        Path = new Vector3[0];
-        pathIndex = 0;
-    }
-    public Vector3 Bezier(float t, Vector3[] vectors)
-    {
-        for (int i = vectors.Length; i > 1; i--)
+        rtsTerrain = terrain.GetComponent<RTSTerrain>();
+        if (storedTextureIndex == -1)
         {
-            Vector3[] nv = new Vector3[i];
-            for (int j = 0; j < i - 1; j++)
-            {
-                nv[j] = Vector3.Lerp(vectors[j + 1], vectors[j], t);
-            }
-            vectors = nv;
+            CreatePathTexture();
         }
-        return vectors[0];
-    }
-
-    public void SetPath(Stack<Vector3> path)
-    {
-        time = 0;
-        startPosition = transform.position;
-        Path = path.ToArray();
-        Path[0] = startPosition;
-        pathIndex = 0;
-        isMoving = true;
+        Utils.PaintTerrain(terrain);
     }
 
     public void Update()
     {
-
         h = terrain.SampleHeight(transform.position) + terrain.transform.position.y;
         if (Height > 0)
-            h = Mathf.Lerp(h, Height + h, Time.deltaTime) + Mathf.Sin(Time.time) * (deltaHeight / 2);
-        
-        if (pathIndex < Path.Length)
         {
-            transform.position = Bezier((time * MoveSpeed) / Vector3.Distance(startPosition, Path[Path.Length - 1]), Path);
-            if (transform.position == Path[pathIndex])
+            h = Mathf.Lerp(h, Height + h, Time.deltaTime) + Mathf.Sin(Time.time) * (DeltaHeight / 2);
+        }
+        model.transform.position = transform.position + new Vector3(0, h + 1, 0);
+        accumulator += Time.deltaTime;
+        if (accumulator >= PathUpdatePeriod)
+        {
+            accumulator = 0;
+            var ptx = rtsTerrain.Overlapper.Textures[storedTextureIndex];
+            if (rtsTerrain.WorldToGridPosition(transform.position) != ptx.Position)
             {
-                pathIndex++;
+                ptx.Position = rtsTerrain.WorldToGridPosition(transform.position);
+                rtsTerrain.Overlapper.Textures[storedTextureIndex] = ptx;
+                Debug.Log(ptx.Position.ToString());
             }
         }
-        else isMoving = false;
-        time += Time.deltaTime;
-        model.transform.position = transform.position + new Vector3(0, h + 1, 0);
     }
 }
