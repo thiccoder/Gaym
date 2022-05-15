@@ -1,64 +1,36 @@
 ﻿using Globals;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 public class Move : Order
 {
-    private RTSTerrain rtsTerrain;
-    private Stats stats;
-    private float time = 0;
-    private List<Vector3> Path;
-    private int pathIndex;
-    [HideInInspector]
-    public float PathLength;
-    [HideInInspector]
-    public Terrain terrain;
-    public float MoveSpeed;
-    public float TurnSpeed;
-    public TerrainType MoveType = TerrainType.Walkable;
+    private NavMeshAgent agent;
+    private float moveSpeed;
+    private float turnSpeed;
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value;agent.speed = value; } }
+    public float TurnSpeed { get { return turnSpeed; } set { turnSpeed = value; agent.angularSpeed = value; } }
+    public float Size;
     public void Start()
     {
         IsObjectTargeted = false;
-        terrain = Terrain.activeTerrain;
-        rtsTerrain = terrain.GetComponent<RTSTerrain>();
-        time = 0;
-        Path = new();
-        pathIndex = 0;
-        stats = GetComponent<Stats>();
+        agent = GetComponent<NavMeshAgent>();
     }
     public override void Invoke(OrderTarget target)
     {
-        Path = rtsTerrain.FindPath(transform.position, target.Position, MoveType,new List<int>(stats.storedTextureIndex));
-        time = 0;
-        string s = "playfieldpath=";
-        foreach (var point in Path)
-        {
-            s += point.ToString() + ' ';
-        }
-        Debug.Log(s);
-        pathIndex = 0;
-        PathLength = Utils.GetPathLength(Path);
         completed = false;
+        agent.isStopped = false;
+        agent.destination = target.Position;
+        agent.stoppingDistance = Size * 2;
+        agent.radius = Size;
     }
     public override void Abort()
     {
-        Path = new();
+        agent.isStopped = true;
         completed = true;
     }
     public void Update()
     {
-        if (pathIndex >= Path.Count)
-        {
-            completed = true;
-        }
-        if (!completed)
-        {
-            transform.position = Utils.Bezier(time * MoveSpeed / PathLength, Path);
-            if (transform.position == Path[pathIndex])
-            {
-                pathIndex++;
-            }
-        }
-        time += Time.deltaTime;
+        completed = agent.isStopped;
     }
 }

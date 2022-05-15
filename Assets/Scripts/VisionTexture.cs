@@ -1,10 +1,11 @@
 using Globals;
 using System;
 using UnityEngine;
-public class VisionTexture : Texture
+public class VisionTexture : IEquatable<VisionTexture>
 {
 
     private readonly VisionType[,] data;
+    public Vector2Int Resolution;
     public VisionTexture() 
     {
     
@@ -25,11 +26,6 @@ public class VisionTexture : Texture
     {
         return obj is VisionTexture texture && Equals(texture);
     }
-    public override bool Equals(Texture other)
-    {
-        return other is VisionTexture texture && Equals(texture);
-    }
-
     public bool Equals(VisionTexture other)
     {
         return data == other.data;

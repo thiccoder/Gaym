@@ -12,8 +12,8 @@ public class MouseSelectable : MonoBehaviour
     }
     public void Select() 
     {
-        Circle = Instantiate(SelectionCirclePrefab, new Vector3(transform.position.x, transform.position.y - stats.h - 0.99f + stats.terrain.SampleHeight(stats.transform.position) + stats.terrain.transform.position.y, transform.position.z), Quaternion.AngleAxis(90, new Vector3(1,0,0)));
-        Circle.transform.localScale = stats.transform.localScale;
+        Circle = Instantiate(SelectionCirclePrefab, stats.GetSeletionCirclePosition(), Quaternion.AngleAxis(90, new Vector3(1,0,0)));
+        Circle.transform.localScale = stats.model.transform.localScale;
         Circle.transform.SetParent(transform);
     }
     public void DeSelect() 
@@ -25,7 +25,7 @@ public class MouseSelectable : MonoBehaviour
     {
         if (Circle is not null)
         {
-            Circle.transform.position = new Vector3(transform.position.x, transform.position.y - stats.h - 0.99f + stats.terrain.SampleHeight(stats.transform.position) + stats.terrain.transform.position.y, transform.position.z);
+            Circle.transform.position = stats.GetSeletionCirclePosition();
         }
     }
 }
