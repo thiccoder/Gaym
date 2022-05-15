@@ -4,7 +4,7 @@ using UnityEngine;
 using Globals;
 public class PathFinder
 {
-    public readonly TextureOverlapper<PathTexture> Overlapper;
+    public TextureOverlapper<PathTexture> Overlapper;
     private static readonly Vector2Int[] neighborsTemplate = {
             new Vector2Int(1, 0),
             new Vector2Int(0, 1),
@@ -15,7 +15,6 @@ public class PathFinder
             new Vector2Int(-1, 1),
             new Vector2Int(-1, -1)
         };
-
     public PathFinder(Vector2Int resolution)
     {
         Overlapper = new TextureOverlapper<PathTexture>(new PathTexture(resolution));
@@ -28,18 +27,31 @@ public class PathFinder
     {
         Overlapper = overlapper;
     }
-    public List<Vector2Int> FindPath(Vector2Int from, Vector2Int to, TerrainType moveType = TerrainType.All)
+    public List<Vector2Int> FindPath(Vector2Int from, Vector2Int to, TerrainType moveType = TerrainType.All, List<int> ignoreIndexes = null)
     {
+        var overlapperClone = Overlapper;
+        if (ignoreIndexes is not null)
+        {
+            foreach (int index in ignoreIndexes)
+            {
+                var ptx = overlapperClone.Textures[index];
+                ptx.Active = false;
+                overlapperClone.Textures[index] = ptx;
+            }
+        }
+        var resolution = overlapperClone.MainTexture.Resolution;
+        Node nullNode = new(new(-1, -1), 0, 0);
+        Dictionary<Node, Node> parents = new();
         HashSet<Vector2Int> visited = new();
         HashSet<Node> active = new()
         {
-            new Node(from, 0, Mathf.Abs((to - from).y) + Mathf.Abs((to - from).y), null)
+            new Node(from, 0, Mathf.Abs((to - from).y) + Mathf.Abs((to - from).y))
         };
-        for (int i = 0; i < Overlapper.MainTexture.Resolution.x; i++)
+        for (int i = 0; i < resolution.x; i++)
         {
-            for (int j = 0; j < Overlapper.MainTexture.Resolution.y; j++)
+            for (int j = 0; j < resolution.y; j++)
             {
-                if (!moveType.HasFlag((TerrainType)Overlapper[i, j]))
+                if (!moveType.HasFlag((TerrainType)overlapperClone[i, j]))
                 {
                     visited.Add(new Vector2Int(i, j));
                 }
@@ -47,19 +59,19 @@ public class PathFinder
         }
         while (active.Any())
         {
-            var lowest = active.Min(a => a.EstimatedTotalCost);
+            float lowest = active.Min(a => a.EstimatedTotalCost);
             Node current = active.First(a => a.EstimatedTotalCost == lowest);
 
             active.Remove(current);
             visited.Add(current.Position);
 
-            if (current.Position.Equals(to))
+            if (current.Position == to)
             {
-                var res = new List<Vector2Int>();
-                while (current.Parent is not null)
+                List<Vector2Int> res = new();
+                while (parents.ContainsKey(current))
                 {
                     res.Add(current.Position);
-                    current = current.Parent;
+                    current = parents[current];
                 }
                 res.Add(from);
                 return res;
@@ -67,20 +79,27 @@ public class PathFinder
             foreach (Vector2Int position in neighborsTemplate)
             {
                 Vector2Int nodePosition = position + current.Position;
-                if (nodePosition.x >= Overlapper.MainTexture.Resolution.x || nodePosition.x < 0 || nodePosition.y >= Overlapper.MainTexture.Resolution.y || nodePosition.y < 0 || visited.Contains(nodePosition)) 
+                if (nodePosition.x >= resolution.x || nodePosition.x < 0 || nodePosition.y >= resolution.y || nodePosition.y < 0 || visited.Contains(nodePosition))
                 {
                     continue;
                 }
                 Vector2Int delta = to - nodePosition;
                 float traverseDistance = current.TraverseDistance + 1;
                 float heuristicDistance = traverseDistance + Mathf.Sqrt(delta.x * delta.x + delta.y * delta.y);
-                var neighbor = new Node(nodePosition, traverseDistance, heuristicDistance, current);
-                var node = active.FirstOrDefault(a => a.Position == nodePosition);
-                if (node is null) active.Add(neighbor);
-                else if (neighbor.TraverseDistance < node.TraverseDistance)
+                var neighbor = new Node(nodePosition, traverseDistance, heuristicDistance);
+                parents[neighbor] = current;
+                if (!active.Contains(neighbor))
                 {
-                    active.Remove(node);
                     active.Add(neighbor);
+                }
+                else
+                {
+                    var node = active.FirstOrDefault(a => a == neighbor);
+                    if (neighbor.TraverseDistance < node.TraverseDistance)
+                    {
+                        active.Remove(node);
+                        active.Add(neighbor);
+                    }
                 }
             }
         }

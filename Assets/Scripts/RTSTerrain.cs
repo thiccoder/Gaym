@@ -41,13 +41,13 @@ public class RTSTerrain : MonoBehaviour
         }
         finder = new PathFinder(ptx);
     }
-    public List<Vector3> FindPath(Vector3 from, Vector3 to, TerrainType type)
+    public List<Vector3> FindPath(Vector3 from, Vector3 to, TerrainType type, List<int> ignoreIndexes = null)
     {
         from -= transform.position;
         to -= transform.position;
         var gridFrom = new Vector2Int((int)Mathf.Clamp(from.x * Scale.x, 0, Overlapper.MainTexture.Resolution.x), (int)Mathf.Clamp(from.z * Scale.y, 0, Overlapper.MainTexture.Resolution.y));
         var gridTo = new Vector2Int((int)Mathf.Clamp(to.x * Scale.x, 0, Overlapper.MainTexture.Resolution.x), (int)Mathf.Clamp(to.z * Scale.y, 0, Overlapper.MainTexture.Resolution.y));
-        var gridPath = finder.FindPath(gridFrom, gridTo, type);
+        var gridPath = finder.FindPath(gridFrom, gridTo, type, ignoreIndexes);
         var path = new List<Vector3>();
         foreach (var gridPos in gridPath)
         {

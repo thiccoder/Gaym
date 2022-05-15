@@ -6,6 +6,5 @@ using UnityEngine;
 public abstract class Texture : IEquatable<Texture>
 {
     public abstract bool Equals(Texture other);
-    public bool Active;
     public Vector2Int Resolution;
 }

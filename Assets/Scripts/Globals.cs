@@ -48,12 +48,14 @@ namespace Globals
     {
         public readonly Texture Tex;
         public readonly bool IsPathTexture;
+        public bool Active;
         public Vector2Int Position;
-        public StoredTexture(Texture tex, Vector2Int position)
+        public StoredTexture(Texture tex, Vector2Int position,bool active = true)
         {
             Tex = tex;
             Position = position;
             IsPathTexture = tex.GetType() == typeof(PathTexture);
+            Active = active;
         }
     }
     [Flags]
@@ -85,19 +87,33 @@ namespace Globals
         public abstract void Invoke(OrderTarget target);
         public abstract void Abort();
     }
-    public class Node
+    public struct Node
     {
-        public Node(Vector2Int position, float traverseDist, float heuristicDist, Node parent)
+        public Node(Vector2Int position, float traverseDist, float heuristicDist)
         {
             Position = position;
             TraverseDistance = traverseDist;
-            Parent = parent;
             EstimatedTotalCost = TraverseDistance + heuristicDist;
         }
 
-        public Vector2Int Position { get; }
-        public float TraverseDistance { get; }
-        public float EstimatedTotalCost { get; }
-        public Node Parent { get; }
+        public Vector2Int Position;
+        public float TraverseDistance;
+        public float EstimatedTotalCost;
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode() 
+        {
+            return Position.GetHashCode()+123134;
+        }
+        public static bool operator ==(Node left, Node right)
+        {
+            return left.Equals(right);
+        }
+        public static bool operator !=(Node left, Node right)
+        {
+            return !(left==right);
+        }
     }
 }

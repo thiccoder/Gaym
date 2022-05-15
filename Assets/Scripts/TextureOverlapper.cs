@@ -6,7 +6,7 @@ using UnityEngine;
 public class TextureOverlapper<T> where T : Texture
 {
     public readonly T MainTexture;
-    public readonly List<StoredTexture<T>> Textures;
+    public List<StoredTexture<T>> Textures;
     private readonly bool isPathTextureOverlapper;
     private readonly bool isVisionTextureOverlapper;
     public TextureOverlapper(T mainTex, List<StoredTexture<T>> texes)
@@ -28,7 +28,7 @@ public class TextureOverlapper<T> where T : Texture
                 TerrainType val = (MainTexture as PathTexture)[x, y];
                 foreach (var storedTex in Textures)
                 {
-                    if (storedTex.Tex.Active)
+                    if (storedTex.Active)
                     {
                         try
                         {
@@ -47,7 +47,7 @@ public class TextureOverlapper<T> where T : Texture
                 VisionType val = (MainTexture as VisionTexture)[x, y];
                 foreach (var storedTex in Textures)
                 {
-                    if (storedTex.Tex.Active)
+                    if (storedTex.Active)
                     {
                         try
                         {

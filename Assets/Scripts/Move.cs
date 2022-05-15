@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Move : Order
 {
     private RTSTerrain rtsTerrain;
+    private Stats stats;
     private float time = 0;
     private List<Vector3> Path;
     private int pathIndex;
@@ -23,10 +24,11 @@ public class Move : Order
         time = 0;
         Path = new();
         pathIndex = 0;
+        stats = GetComponent<Stats>();
     }
     public override void Invoke(OrderTarget target)
     {
-        Path = rtsTerrain.FindPath(transform.position, target.Position, MoveType);
+        Path = rtsTerrain.FindPath(transform.position, target.Position, MoveType,new List<int>(stats.storedTextureIndex));
         time = 0;
         string s = "playfieldpath=";
         foreach (var point in Path)

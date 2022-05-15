@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    private int storedTextureIndex = -1;
     private GameObject model;
     private float accumulator;
     public float Height;
     public float DeltaHeight;
     public Texture2D PathingTexture;
     public float PathUpdatePeriod = 1;
+    [HideInInspector]
+    public int storedTextureIndex = -1;
     [HideInInspector]
     public float h = 0;
     [HideInInspector]

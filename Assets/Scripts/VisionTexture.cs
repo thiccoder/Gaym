@@ -13,13 +13,11 @@ public class VisionTexture : Texture
     {
         Resolution = new Vector2Int(data.GetLength(0), data.GetLength(1));
         this.data = data;
-        Active = true;
     }
     public VisionTexture(Vector2Int resolution)
     {
         Resolution = resolution;
         data = new VisionType[resolution.x, resolution.y];
-        Active = true;
     }
     public VisionType this[int x, int y] { get { return data[x, y]; } set { data[x, y] = value; } }
 
