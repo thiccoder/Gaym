@@ -3,51 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Globals;
-
-public class OrderQueue : MonoBehaviour
+namespace GameEngine
 {
-    private readonly Queue<StoredOrder> Orders = new();
-    private Order current = null;
-    public void Update()
+    internal class OrderQueue : MonoBehaviour
     {
-        if (Orders.Count != 0 && (current is null || current.completed))
+        private readonly Queue<StoredOrder> Orders = new();
+        private Order current = null;
+        public void Update()
         {
-            Invoke();
-        }
+            if (Orders.Count != 0 && (current is null || current.completed))
+            {
+                Issue();
+            }
 
-    }
-    public void Add(StoredOrder order)
-    {
-        Orders.Enqueue(order);
-    }
-    public bool Invoke()
-    {
-        current = Orders.Dequeue().Issue(gameObject);
-        return current is not null;
-    }
-    public bool InvokeInstant(StoredOrder order) 
-    {
-        Clear();
-        Add(order);
-        return Invoke();
-    }
-    public bool Abort() 
-    {
-        if (current is not null)
-        {
-            current.Abort();
         }
-        current = null;
-        return current is null;
-    }
-    public bool Clear()
-    {
-        Orders.Clear();
-        if (current is not null)
+        public void Add(StoredOrder order)
         {
-            current.Abort();
+            Orders.Enqueue(order);
         }
-        current = null;
-        return Orders.Count == 0 && current is null;
+        public Order Issue()
+        {
+            current = Orders.Dequeue().Issue(gameObject);
+            return current;
+        }
+        public Order IssueImmediate(StoredOrder order)
+        {
+            Clear();
+            Add(order);
+            return Issue();
+        }
+        public bool Abort()
+        {
+            if (current is not null)
+            {
+                current.Abort();
+            }
+            current = null;
+            return current is null;
+        }
+        public bool Clear()
+        {
+            Orders.Clear();
+            if (current is not null)
+            {
+                current.Abort();
+            }
+            current = null;
+            return Orders.Count == 0 && current is null;
+        }
     }
 }

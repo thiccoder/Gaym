@@ -1,22 +1,20 @@
-using Globals;
-using UnityEngine;
-using System.Collections.Generic;
-
-public class Stop : Order
+using GameEngine;
+namespace Globals
 {
-    
-    private OrderQueue Queue;
-    public void Start()
+    public class Stop : Order
     {
-        IsObjectTargeted = false;
-        Queue = GetComponent<OrderQueue>();
-    }
-    public override void Invoke(OrderTarget target)
-    {
-        completed = Queue.Abort();
-    }
-    public override void Abort()
-    {
-
+        private OrderQueue Queue;
+        public void Start()
+        {
+            IsObjectTargeted = false;
+            Queue = GetComponent<OrderQueue>();
+        }
+        public override void Issue(OrderTarget target)
+        {
+            completed = Queue.Abort();
+        }
+        public override void Abort()
+        {
+        }
     }
 }

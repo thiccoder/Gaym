@@ -1,36 +1,38 @@
 ﻿using Globals;
 using System;
 using UnityEngine;
-
-public class Stats : MonoBehaviour
+namespace GameEngine
 {
-    [HideInInspector]
-    public GameObject model;
-    public float Height;
-    public float DeltaHeight;
-    [HideInInspector]
-    public float h = 0;
-    [HideInInspector]
-    public Terrain terrain;
-    private Vector3 modelOffset;
-    public void Start()
+    public class Stats : MonoBehaviour
     {
-        terrain = Terrain.activeTerrain;
-        model = GetComponentInChildren<MeshRenderer>(false).gameObject;
-        modelOffset = model.transform.localPosition;
-    }
-
-    public void Update()
-    {
-        h = 0;
-        if (Height > 0)
+        [HideInInspector]
+        public GameObject model;
+        public float Height;
+        public float DeltaHeight;
+        [HideInInspector]
+        public float h = 0;
+        [HideInInspector]
+        public Terrain terrain;
+        private Vector3 modelOffset;
+        public void Start()
         {
-            h = Mathf.Lerp(h, Height + h, Time.deltaTime) + Mathf.Sin(Time.time) * (DeltaHeight / 2);
+            terrain = Terrain.activeTerrain;
+            model = GetComponentInChildren<MeshRenderer>(false).gameObject;
+            modelOffset = model.transform.localPosition;
         }
-        model.transform.position = transform.position + modelOffset;
-    }
-    public Vector3 GetSeletionCirclePosition() 
-    {
-        return transform.position + new Vector3(0, 0.01f, 0);
+
+        public void Update()
+        {
+            h = 0;
+            if (Height > 0)
+            {
+                h = Mathf.Lerp(h, Height + h, Time.deltaTime) + Mathf.Sin(Time.time) * (DeltaHeight / 2);
+            }
+            model.transform.position = transform.position + modelOffset;
+        }
+        public Vector3 GetSeletionCirclePosition()
+        {
+            return transform.position + new Vector3(0, 0.01f, 0);
+        }
     }
 }

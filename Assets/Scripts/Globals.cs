@@ -21,8 +21,8 @@ namespace Globals
             IsObject = true;
         }
     }
-    public struct StoredOrder
-    {
+    internal struct StoredOrder
+    {   
         public readonly OrderTarget Target;
         public readonly Type OrderType;
         public StoredOrder(Type orderType,OrderTarget target)
@@ -37,27 +37,14 @@ namespace Globals
             {
                 if (order.GetType() == OrderType)
                 {
-                    order.Invoke(Target);
+                    order.Issue(Target);
                     return order;
                 }
             }
             return null;
         }
     }
-    public struct StoredTexture
-    {
-        public readonly VisionTexture Tex;
-        public bool Active;
-        public Vector2Int Position;
-        public StoredTexture(VisionTexture tex, Vector2Int position,bool active = true)
-        {
-            Tex = tex;
-            Position = position;
-            Active = active;
-        }
-    }
-
-    public enum VisionType : byte 
+        public enum VisionType : byte 
     {
         None = 0,
         Revealed,
@@ -69,7 +56,7 @@ namespace Globals
         public bool IsObjectTargeted;
         [HideInInspector]
         public bool completed = false;
-        public abstract void Invoke(OrderTarget target);
+        public abstract void Issue(OrderTarget target);
         public abstract void Abort();
     }
     
