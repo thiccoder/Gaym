@@ -1,8 +1,7 @@
 ﻿using GameEngine;
-using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.AI;
-namespace Globals
+
+namespace Globals.Orders
 {
     public class Move : Order
     {
@@ -11,19 +10,19 @@ namespace Globals
         private float turnSpeed;
         public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; agent.speed = value; } }
         public float TurnSpeed { get { return turnSpeed; } set { turnSpeed = value; agent.angularSpeed = value; } }
-        public float Size;
         public void Start()
         {
             IsObjectTargeted = false;
             agent = GetComponent<NavMeshAgent>();
+            unit = GetComponent<Widget>();
         }
         public override void Issue(OrderTarget target)
         {
             completed = false;
             agent.isStopped = false;
-            agent.destination = target.Position;
-            agent.stoppingDistance = Size * 2;
-            agent.radius = Size;
+            agent.destination = target.Location;
+            agent.stoppingDistance = unit.Size * 2;
+            agent.radius = unit.Size;
         }
         public override void Abort()
         {

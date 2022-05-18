@@ -1,5 +1,6 @@
 using GameEngine;
-namespace Globals
+
+namespace Globals.Orders
 {
     public class Stop : Order
     {

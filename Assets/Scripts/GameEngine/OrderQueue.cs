@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Globals;
+using Globals.Orders;
+
 namespace GameEngine
 {
     internal class OrderQueue : MonoBehaviour

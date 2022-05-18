@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Globals;
+using Globals.Orders;
 using TMPro;
 namespace GameEngine
 {
-    public class World : MonoBehaviour
+    public class LocalPlayer : MonoBehaviour
     {
         private TerrainCollider Collider;
         private Vector3 MousePos;
@@ -12,7 +12,7 @@ namespace GameEngine
         private Ray ray;
         private bool inSelection = false;
         private Vector3 mousePositionStart;
-        public static List<GameObject> Selected = new();
+        public static HashSet<GameObject> Selected = new();
         public static bool isSelecting = true;
         public TMP_Text text;
         private void Cast(bool OnlyTerrain)
@@ -119,7 +119,7 @@ namespace GameEngine
             obj.GetComponent<MouseSelectable>().DeSelect();
         }
 
-        public List<GameObject> GetSelected()
+        public HashSet<GameObject> GetSelected()
         {
             return Selected;
         }
