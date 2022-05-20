@@ -13,8 +13,11 @@ namespace Globals
                 var gameobjs = player.GetSelected();
                 HashSet<Unit> units = new();
                 foreach (var obj in gameobjs)
-                { 
-                    units.Add((Unit)obj.GetComponent<Widget>());
+                {
+                    if (obj.TryGetComponent(out Widget widget))
+                    {
+                        units.Add((Unit)widget);
+                    }
                 }
                 return units;
             }

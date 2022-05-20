@@ -1,4 +1,5 @@
 ﻿using System;
+using GameEngine;
 
 namespace Globals
 {
@@ -7,5 +8,6 @@ namespace Globals
         public decimal Value;
         public string Name;
         public Tuple<decimal, decimal> range;
+        public StatBehaviour bhv;
     }
 }

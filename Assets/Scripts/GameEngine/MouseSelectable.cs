@@ -6,22 +6,25 @@ namespace GameEngine
     {
 
         public GameObject SelectionCirclePrefab;
-        private Widget unit;
-        private GameObject Circle;
-        public void Start()
-        {
-            unit = GetComponentInParent<Widget>();
-        }
+        private GameObject Circle = null;
         public void Select()
         {
-            Circle = Instantiate(SelectionCirclePrefab, new Vector3(0,1,0), Quaternion.AngleAxis(90, new Vector3(1, 0, 0)),transform);
-            Circle.transform.localPosition = new Vector3(0,0,0);   
-            Circle.transform.localScale = new Vector3(unit.Size,1,unit.Size);
+            if (Circle is null)
+            {
+                Circle = Instantiate(SelectionCirclePrefab, new Vector3(0, 0, 0), Quaternion.AngleAxis(90, new Vector3(1, 0, 0)), transform);
+                Circle.transform.localPosition = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                Circle.SetActive(true);
+            }
         }
         public void DeSelect()
         {
-            Destroy(Circle);
-            Circle = null;
+            if (Circle is not null)
+            {
+                Circle.SetActive(false);
+            }
         }
 
     }

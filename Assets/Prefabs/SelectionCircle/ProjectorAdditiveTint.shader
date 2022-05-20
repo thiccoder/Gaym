@@ -1,7 +1,3 @@
-// Upgrade NOTE: replaced '_Projector' with 'unity_Projector'
-// Upgrade NOTE: replaced '_ProjectorClip' with 'unity_ProjectorClip'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
 Shader "Projector/AdditiveTint" {
 	Properties {
 		_Color ("Tint Color", Color) = (1,1,1,1)
@@ -13,7 +9,7 @@ Shader "Projector/AdditiveTint" {
 		Pass {
 			ZWrite Off
 			ColorMask RGB
-			Blend SrcAlpha One // Additive blending
+			Blend SrcAlpha One
 			Offset -1, -1
 
 			CGPROGRAM
@@ -43,11 +39,9 @@ Shader "Projector/AdditiveTint" {
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				// Apply alpha mask
 				fixed4 texCookie = tex2Dproj (_ShadowTex, UNITY_PROJ_COORD(i.uvShadow));
 				fixed4 outColor = _Color * texCookie.a;
-				// Attenuation
-				float depth = i.uvShadow.z; // [-1 (near), 1 (far)]
+				float depth = i.uvShadow.z;
 				return outColor * clamp(1.0 - abs(depth) + _Attenuation, 0.0, 1.0);
 			}
 			ENDCG
