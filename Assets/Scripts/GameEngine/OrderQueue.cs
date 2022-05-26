@@ -1,28 +1,44 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Globals.Orders;
+using Assets.Scripts.Globals.Orders;
+using System;
+using System.Linq.Expressions;
+using System.Collections;
 
-namespace GameEngine
+namespace Assets.Scripts.GameEngine
 {
     internal class OrderQueue : MonoBehaviour
     {
-        private readonly Queue<StoredOrder> Orders = new();
-        private Order current = null;
+        private Queue<StoredOrder> orders = new();
+        private Order current;
+        public int Count => orders.Count;
+        public void Start()
+        {
+            current = GetComponent<Stop>();
+            current.Issue(Target.Null);
+        }
         public void Update()
         {
-            if (Orders.Count != 0 && (current is null || current.completed))
+            if ((current is not null) && (!current.Issuing))
+            {
+                print(current);
+                current = null;
+            }
+            if ((current is null) && (Count != 0))
             {
                 Issue();
+                print(current);
             }
-
         }
         public void Add(StoredOrder order)
         {
-            Orders.Enqueue(order);
+            orders.Enqueue(order);
         }
         public Order Issue()
         {
-            current = Orders.Dequeue().Issue(gameObject);
+            if (Count == 0) throw new InvalidOperationException("Sequence contains no elements");
+            current = orders.Dequeue().Issue(gameObject);
             return current;
         }
         public Order IssueImmediate(StoredOrder order)
@@ -31,24 +47,20 @@ namespace GameEngine
             Add(order);
             return Issue();
         }
-        public bool Abort()
+        public void Abort()
         {
-            if (current is not null)
+            if (current is not null && current.CanAbort)
             {
                 current.Abort();
+                current = null;
             }
-            current = null;
-            return current is null;
         }
-        public bool Clear()
+        public void Clear()
         {
-            Orders.Clear();
-            if (current is not null)
-            {
-                current.Abort();
-            }
-            current = null;
-            return Orders.Count == 0 && current is null;
+            Queue<StoredOrder> newOrders = new(orders.Where(x => !x.GetOrder(gameObject).CanAbort));
+            orders.Clear();
+            orders = newOrders;
+            Abort();
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using GameEngine;
-using Globals.Orders;
+using Assets.Scripts.GameEngine;
+using Assets.Scripts.Globals.Orders;
 using UnityEngine;
 
-namespace Globals
+namespace Assets.Scripts.Globals
 {
     public class Unit
     {
@@ -21,8 +21,14 @@ namespace Globals
                 _owner.AllUnits.Add(this);
             }
         }
+        public Transform Transform { get { return widget.transform; }}
         public HashSet<Order> Orders;
-        public Dictionary<string, Stat> stats;
+        public float Health;
+        public float MaxHealth;
+        public float HealthRegen;
+        public float Stamina;
+        public float MaxStamina;
+        public float StaminaRegen;
         private readonly Widget widget;
 
         public Unit(Widget wdt)

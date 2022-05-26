@@ -1,21 +1,22 @@
-using GameEngine;
+using Assets.Scripts.GameEngine;
 
-namespace Globals.Orders
+namespace Assets.Scripts.Globals.Orders
 {
     public class Stop : Order
     {
-        private OrderQueue Queue;
-        public void Start()
+        public override void Issue(Target target)
         {
-            IsObjectTargeted = false;
-            Queue = GetComponent<OrderQueue>();
-        }
-        public override void Issue(OrderTarget target)
-        {
-            completed = Queue.Abort();
+            Issuing = false;
+            Completed = true;
         }
         public override void Abort()
         {
+            Issuing = false;
+            Completed = false;
+        }
+        public override string ToOrderString()
+        {
+            return "Stop";
         }
     }
 }

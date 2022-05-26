@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameEngine
+namespace Assets.Scripts.GameEngine
 {
     public class MouseSelectable : MonoBehaviour
     {

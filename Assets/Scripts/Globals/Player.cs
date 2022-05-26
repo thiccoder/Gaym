@@ -1,7 +1,8 @@
-using GameEngine;
+using Assets.Scripts.GameEngine;
+using Assets.Scripts.GameEngine.Locals;
 using System.Collections.Generic;
 
-namespace Globals
+namespace Assets.Scripts.Globals
 {
     public class Player
     {

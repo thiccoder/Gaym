@@ -136,8 +136,9 @@ GameObject:
   - component: {fileID: 40919618}
   - component: {fileID: 40919617}
   - component: {fileID: 40919616}
+  - component: {fileID: 40919619}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Model (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,6 +223,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40919614}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!135 &40919619
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40919614}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &223974226
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,9 +281,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8657f647f68fdd48ba926b5b81c9701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsObjectTargeted: 0
-  completed: 0
-  unit: {fileID: 0}
+  Completed: 0
+  Issuing: 0
+  unit: {fileID: 223974233}
+  CanAbort: 1
+  Range: {x: Infinity, y: Infinity}
+  agent: {fileID: 223974232}
+  moveSpeed: 2.5
+  turnSpeed: 120
 --- !u!4 &223974230
 Transform:
   m_ObjectHideFlags: 0
@@ -299,9 +318,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b971503470cdc942ac3e5b47b08d20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsObjectTargeted: 0
-  completed: 0
-  unit: {fileID: 0}
+  Completed: 0
+  Issuing: 0
+  unit: {fileID: 223974233}
+  CanAbort: 1
+  Range: {x: Infinity, y: Infinity}
 --- !u!195 &223974232
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -312,7 +333,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6
+  m_Speed: 5
   m_Acceleration: 3.4028235e+38
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -323,7 +344,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &223974233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +422,7 @@ Terrain:
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
   m_ScaleInLightmap: 0.0256
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightmapParameters: {fileID: 15201, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
@@ -535,11 +556,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 32
+  near clip plane: 1
+  far clip plane: 129
+  field of view: 90
+  orthographic: 0
+  orthographic size: 128
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -650,6 +671,7 @@ GameObject:
   - component: {fileID: 629853728}
   - component: {fileID: 629853726}
   - component: {fileID: 629853733}
+  - component: {fileID: 629853736}
   - component: {fileID: 629853735}
   - component: {fileID: 629853734}
   m_Layer: 0
@@ -683,9 +705,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8657f647f68fdd48ba926b5b81c9701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsObjectTargeted: 0
-  completed: 0
+  Completed: 0
+  Issuing: 0
   unit: {fileID: 629853735}
+  CanAbort: 1
+  Range: {x: Infinity, y: Infinity}
+  agent: {fileID: 629853734}
+  moveSpeed: 7
+  turnSpeed: 10
 --- !u!4 &629853732
 Transform:
   m_ObjectHideFlags: 0
@@ -715,9 +742,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b971503470cdc942ac3e5b47b08d20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsObjectTargeted: 0
-  completed: 0
+  Completed: 0
+  Issuing: 0
   unit: {fileID: 629853735}
+  CanAbort: 1
+  Range: {x: Infinity, y: Infinity}
 --- !u!195 &629853734
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -728,10 +757,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 658490984
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 10
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -756,6 +785,24 @@ MonoBehaviour:
   DeltaHeight: 0
   Size: 0.37
   modelOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &629853736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629853724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e754a8475604c6d4ab175a2b1d2e9748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Completed: 0
+  Issuing: 0
+  unit: {fileID: 629853735}
+  CanAbort: 1
+  Range: {x: Infinity, y: Infinity}
+  attackObject: {fileID: 11400000, guid: 49e35b068b7fc234a9ae255bb84ae55f, type: 2}
 --- !u!1 &653996905
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +1034,7 @@ GameObject:
   - component: {fileID: 788001707}
   - component: {fileID: 788001706}
   - component: {fileID: 788001708}
+  - component: {fileID: 788001709}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -1001,14 +1049,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788001704}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 629853732}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!23 &788001706
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1073,6 +1121,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectionCirclePrefab: {fileID: 166266, guid: dc884a6ec589ce249acc9b5326859165,
     type: 3}
+--- !u!136 &788001709
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788001704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258852241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1198,12 +1260,12 @@ Projector:
   m_GameObject: {fileID: 1258852241}
   m_Enabled: 1
   serializedVersion: 2
-  m_NearClipPlane: 0.1
-  m_FarClipPlane: 100
+  m_NearClipPlane: 1
+  m_FarClipPlane: 129
   m_FieldOfView: 90
   m_AspectRatio: 1
-  m_Orthographic: 1
-  m_OrthographicSize: 32
+  m_Orthographic: 0
+  m_OrthographicSize: 128
   m_Material: {fileID: 2100000, guid: dee566c0360adff44b48e12e6398d4da, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
@@ -1247,7 +1309,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388109297}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 32, y: 64, z: 32}
+  m_LocalPosition: {x: 128, y: 128, z: 128}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1280,11 +1342,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 32
+  near clip plane: 1
+  far clip plane: 129
+  field of view: 90
+  orthographic: 0
+  orthographic size: 128
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1526,7 +1588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MouseBorder: 40
-  Speed: 10
+  Speed: 7.5
   ChildCamera: {fileID: 963194225}
   CtrlStrength: 2
   Distance: 15
@@ -1674,11 +1736,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 32
+  near clip plane: 1
+  far clip plane: 129
+  field of view: 90
+  orthographic: 0
+  orthographic size: 128
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

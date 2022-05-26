@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-namespace GameEngine
+namespace Assets.Scripts.GameEngine
 {
     public static class Utils
     {

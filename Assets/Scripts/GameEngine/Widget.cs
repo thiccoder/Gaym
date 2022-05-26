@@ -1,11 +1,10 @@
-﻿using Globals;
+﻿using Assets.Scripts.Globals;
 using UnityEngine;
 using System;
-namespace GameEngine
+namespace Assets.Scripts.GameEngine
 {
     public class Widget : MonoBehaviour
     {
-
         private GameObject model;
         private Unit _unit = null;
         private float h = 0;
@@ -27,13 +26,15 @@ namespace GameEngine
         public float DeltaHeight;
         public float Size;
         public Vector3 modelOffset;
-        public void Start()
+        public void Awake()
         {
             model = GetComponentInChildren<MeshRenderer>(false).gameObject;
             modelOffset = model.transform.localPosition;
-            if (_unit is null) _unit = new Unit(this);
+            if (_unit is null)
+            {
+                _unit = new Unit(this);
+            }
         }
-
         public void Update()
         {
             if (Height > 0)
@@ -46,6 +47,5 @@ namespace GameEngine
         {
             return w._unit;
         }
-
     }
 }
