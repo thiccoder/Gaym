@@ -7,13 +7,13 @@ namespace Assets.Scripts.Globals.Orders
     public class Move : Order
     {
         [SerializeField]
-        private NavMeshAgent agent;
+        protected NavMeshAgent agent;
         [SerializeField]
-        private float moveSpeed;
+        protected float _moveSpeed;
         [SerializeField]
-        private float turnSpeed;
-        public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; agent.speed = value; } }
-        public float TurnSpeed { get { return turnSpeed; } set { turnSpeed = value; agent.angularSpeed = value; } }
+        protected float _turnSpeed;
+        public float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; agent.speed = value; } }
+        public float TurnSpeed { get { return _turnSpeed; } set { _turnSpeed = value; agent.angularSpeed = value; } }
         public void Start()
         {
             agent.stoppingDistance = unit.Size * 2;
@@ -24,11 +24,10 @@ namespace Assets.Scripts.Globals.Orders
         {
             Issue(target as LocationTarget);
         }
-        public void Issue(LocationTarget target)
+        public virtual void Issue(LocationTarget target)
         {
             Issuing = true;
             Completed = false;
-            Debug.Log(agent is null);
             agent.isStopped = false;
             agent.destination = target.Value;
             agent.stoppingDistance = unit.Size * 2;
@@ -40,7 +39,7 @@ namespace Assets.Scripts.Globals.Orders
             Completed = true;
             Issuing = false;
         }
-        public void Update()
+        public virtual void Update()
         {
             if (Issuing)
             {

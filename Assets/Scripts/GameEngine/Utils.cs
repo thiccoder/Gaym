@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 namespace Assets.Scripts.GameEngine
 {
@@ -95,6 +96,27 @@ namespace Assets.Scripts.GameEngine
                 }
             }
             terrain.terrainData.SetAlphamaps(0, 0, map);
+        }
+        public static Vector2 Displacement(this Vector3 loc, Rect area)
+        {
+            Vector2 displacement = Vector2.zero;
+            if (area.xMin > loc.x)
+            {
+                displacement.x = -1;
+            }
+            else if (area.xMax < loc.x)
+            {
+                displacement.x = 1;
+            }
+            if (area.yMin > loc.y)
+            {
+                displacement.y = -1;
+            }
+            else if (area.yMax < loc.y)
+            {
+                displacement.y = 1;
+            }
+            return displacement;
         }
     }
 }

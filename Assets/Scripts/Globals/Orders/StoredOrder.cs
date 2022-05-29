@@ -11,9 +11,8 @@ namespace Assets.Scripts.Globals.Orders
         {
             return (Order)obj.GetComponent(OrderType.Name);
         }
-        public StoredOrder(Target target, Type orderType = null)
+        public StoredOrder(Type orderType, Target target)
         {
-            if (orderType is null) orderType = typeof(Order);
             OrderType = orderType;
             Target = target;
         }

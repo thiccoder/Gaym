@@ -12,14 +12,17 @@ namespace Assets.Scripts.Globals.Abilities
     [CreateAssetMenu(fileName = "New AttackObject", menuName = "Attack Object", order = 52)]
     public class AttackObject : AbilityObject
     {
-        public Transform AttackPos;
-        public Vector2 Range;
+        public float Damage;
         public AttackObject() : base()
         {
             HealthCost = 0;
             StaminaCost = 0;
             OrderType = typeof(Attack);
             TargetType = typeof(UnitTarget);
+        }
+        public virtual Damage DealDamage(Unit dealer, Unit target)
+        {
+            return new Damage(dealer, target, Damage);
         }
     }
 }

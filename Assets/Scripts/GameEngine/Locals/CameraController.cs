@@ -5,81 +5,47 @@ namespace Assets.Scripts.GameEngine.Locals
     {
         public int MouseBorder;
         public float Speed;
-        public GameObject ChildCamera;
-        public float CtrlStrength = 2;
+        public GameObject Camera;
+        public float SpdModStrength = 2;
         public float Distance;
-        
-        private int Collides(float BdUpper, float BdLower, float value)
-        {
-            var side = 0;
-            if (BdLower > value)
-            {
-                side = -1;
-            }
-            else if (BdUpper < value)
-            {
-                side = 1;
-            }
-            return side;
-        }
+        [SerializeField]
+        private Texture2D[] cursors;
         public void Start()
         {
-            if (ChildCamera.transform.parent != transform)
-            {
-                return;
-            }
+            Camera.transform.localPosition = Camera.transform.forward * -Distance;
         }
         public void Update()
         {
-            var horizax = Input.GetAxis("Horizontal");
-            var vertax = Input.GetAxis("Vertical");
-            var mousex = Input.mousePosition.x;
-            var mousey = Input.mousePosition.y;
-            var mousescroll = Input.GetAxis("Mouse ScrollWheel");
-            var Speedx = 0.0f;
-            var Speedy = 0.0f;
+            Vector3 camVelocity = new(Input.GetAxis("CamX"), Input.GetAxis("CamY"), Input.GetAxis("CamZ"));
+            Vector2 displacement = Vector2.zero;
             var speed = Speed;
-            if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) speed *= CtrlStrength;
-            if (mousescroll != 0)
+            if (Input.GetButton("SpdMod"))
             {
-                if (!(Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)))
+                speed *= SpdModStrength;
+            }
+            if (camVelocity.y != 0)
+            {
+                if (Input.GetButton("ActionMod"))
                 {
-                    ChildCamera.transform.Rotate(2 * speed * mousescroll, 0, 0);
+                    Distance -= camVelocity.y * speed / 10;
                 }
                 else
                 {
-                    Distance -= mousescroll * speed / 10;
+                    Camera.transform.rotation *= Quaternion.AngleAxis(2 * speed * camVelocity.y, Camera.transform.right);
                 }
+                Camera.transform.localPosition = Camera.transform.forward * -Distance;
             }
-            ChildCamera.transform.localPosition = new Vector3(0, 0, 0);
-            ChildCamera.transform.Translate(new Vector3(0, 0, -Distance), Space.Self);
-            if (horizax != 0.0f || vertax != 0.0f)
+            if (camVelocity.x == 0 && camVelocity.z == 0)
             {
-                Speedx = Time.deltaTime * Mathf.Sign(horizax) * speed * ((horizax == 0) ? 0 : 1);
-                Speedy = Time.deltaTime * Mathf.Sign(vertax) * speed * ((vertax == 0) ? 0 : 1);
+                displacement = Input.mousePosition.Displacement(Rect.MinMaxRect(MouseBorder, MouseBorder, Screen.width - MouseBorder, Screen.height - MouseBorder)) * speed;
+                
             }
             else
             {
-                var c = Collides((Screen.width - MouseBorder), MouseBorder, mousex);
-                if (c == 1)
-                {
-                    Speedx = (speed * Time.deltaTime);
-                }
-                else if (c == -1)
-                {
-                    Speedx = -(speed * Time.deltaTime);
-                }
-                c = Collides((Screen.height - MouseBorder), MouseBorder, mousey);
-                if (c == 1)
-                {
-                    Speedy = (speed * Time.deltaTime);
-                }
-                else if (c == -1)
-                {
-                    Speedy = -(speed * Time.deltaTime);
-                }
+                displacement.x = Mathf.Sign(camVelocity.x) * speed;
+                displacement.y = Mathf.Sign(camVelocity.z) * speed;
             }
-            transform.Translate(new Vector3(Speedx, 0, Speedy));
+            transform.position += new Vector3(displacement.x, 0, displacement.y) * Time.deltaTime;
         }
     }
 }

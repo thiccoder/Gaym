@@ -21,10 +21,6 @@ namespace Assets.Scripts.Globals.Orders
         {
             return $"\"{ToOrderString()}\", {(Issuing ? "I" : "Not i")}ssuing, {(Completed ? "C" : "Not c")}ompleted ";
         }
-
-        public virtual string ToOrderString()
-        {
-            return "Basic Order";
-        }
+        public abstract string ToOrderString();
     }
 }

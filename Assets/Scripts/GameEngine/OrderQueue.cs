@@ -22,13 +22,11 @@ namespace Assets.Scripts.GameEngine
         {
             if ((current is not null) && (!current.Issuing))
             {
-                print(current);
                 current = null;
             }
             if ((current is null) && (Count != 0))
             {
                 Issue();
-                print(current);
             }
         }
         public void Add(StoredOrder order)

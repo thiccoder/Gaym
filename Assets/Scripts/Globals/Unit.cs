@@ -21,7 +21,8 @@ namespace Assets.Scripts.Globals
                 _owner.AllUnits.Add(this);
             }
         }
-        public Transform Transform { get { return widget.transform; }}
+        public Transform Transform { get { return _widget.transform; } }
+        public bool Alive { get { return Health > 0; } }
         public HashSet<Order> Orders;
         public float Health;
         public float MaxHealth;
@@ -29,22 +30,32 @@ namespace Assets.Scripts.Globals
         public float Stamina;
         public float MaxStamina;
         public float StaminaRegen;
-        private readonly Widget widget;
-
+        public string Name;
+        public string Tooltip;
+        private readonly Widget _widget;
         public Unit(Widget wdt)
         {
-            widget = wdt;
+            _widget = wdt;
         }
         public static explicit operator Widget(Unit u)
         {
-            return u.widget;
+            return u._widget;
         }
-        public Unit(Player owner,Vector2 loc,float facing) 
+        public Unit(Player owner, Vector2 loc, float facing)
         {
-            var obj = Object.Instantiate(DefaultPrefab,new Vector3(loc.x,Terrain.activeTerrain.SampleHeight(new Vector3(loc.x,0,loc.y)),loc.y),Quaternion.AngleAxis(facing,new Vector3(0,1,0)));
-            widget = obj.GetComponent<Widget>();
-            widget.Unit = this;
+            var obj = Object.Instantiate(DefaultPrefab, new Vector3(loc.x, Terrain.activeTerrain.SampleHeight(new Vector3(loc.x, 0, loc.y) + Terrain.activeTerrain.transform.position), loc.y), Quaternion.AngleAxis(facing, new Vector3(0, 1, 0)));
+            _widget = obj.GetComponent<Widget>();
+            Orders = new HashSet<Order>(obj.GetComponents<Order>());
+            _widget.Unit = this;
             Owner = owner;
+        }
+        public void OnDamage(Damage dmg)
+        {
+            Health -= dmg.Amount;
+            if (!Alive) 
+            {
+                Object.Destroy(_widget.gameObject);
+            }
         }
     }
 }

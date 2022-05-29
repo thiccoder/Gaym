@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Globals;
+﻿using Assets.Scripts.GameEngine;
+using Assets.Scripts.Globals;
 using UnityEngine;
 
 namespace Assets.Scripts.Globals.Orders
@@ -40,6 +41,10 @@ namespace Assets.Scripts.Globals.Orders
         public UnitTarget(Unit u) 
         {
             _unit = u;
+        }
+        public static implicit operator UnitTarget(GameObjectTarget t) 
+        {
+            return new UnitTarget((Unit)t.Value.GetComponent<Widget>());
         }
         public override Unit Value { get { return _unit; } set { _unit = value; } }
     }

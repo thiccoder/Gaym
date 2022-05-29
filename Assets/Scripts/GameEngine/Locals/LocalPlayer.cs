@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Globals.Orders;
 using TMPro;
 using Assets.Scripts.Globals;
+using System;
 
 namespace Assets.Scripts.GameEngine.Locals
 {
@@ -13,9 +14,15 @@ namespace Assets.Scripts.GameEngine.Locals
         private Ray ray;
         private bool inSelection = false;
         private Vector3 mousePositionStart;
-        public static HashSet<GameObject> Selected = new();
-        public static bool isSelecting = true;
-        public TMP_Text text;
+        public HashSet<GameObject> Selected = new();
+        public bool canSelect = true;
+        private Type currentOrderType;
+        private Type currentTargetType;
+        [SerializeField]
+        private TMP_Text fpsText;
+        [SerializeField]
+        private Texture2D cursorTexture;
+
         private void Cast(bool OnlyTerrain)
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -47,13 +54,51 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         public void Update()
         {
-            if (isSelecting)
+            bool issuingOrder = false;
+            if (Selected.Count != 0)
             {
-                if (Input.GetButtonDown("Fire1"))
+
+                issuingOrder = Input.GetButtonDown("Select");
+                if (canSelect)
+                {
+                    currentOrderType = null;
+                }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    Cursor.SetCursor(cursorTexture, cursorTexture.texelSize / 2, CursorMode.Auto);
+                    canSelect = false;
+                    currentOrderType = typeof(Attack);
+                    currentTargetType = typeof(UnitTarget);
+                }
+                else if (Input.GetKey(KeyCode.M))
+                {
+                    Cursor.SetCursor(cursorTexture, cursorTexture.texelSize / 2, CursorMode.Auto);
+                    canSelect = false;
+                    currentOrderType = typeof(Move);
+                    currentTargetType = typeof(LocationTarget);
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    canSelect = false;
+                    currentOrderType = typeof(Stop);
+                    currentTargetType = typeof(NullTarget);
+                    issuingOrder = true;
+                }
+                else if (Input.GetButton("Smart"))
+                {
+                    canSelect = false;
+                    currentOrderType = typeof(Smart);
+                    currentTargetType = typeof(NullTarget);
+                    issuingOrder = true;
+                }
+            }
+            if (canSelect)
+            {
+                if (Input.GetButtonDown("Select"))
                 {
                     inSelection = true;
                     mousePositionStart = Input.mousePosition;
-                    if (!(Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)))
+                    if (!Input.GetButton("ActionMod"))
                     {
                         foreach (var obj in FindObjectsOfType<MouseSelectable>())
                         {
@@ -61,7 +106,7 @@ namespace Assets.Scripts.GameEngine.Locals
                         }
                     }
                 }
-                if (Input.GetButtonUp("Fire1"))
+                if (Input.GetButtonUp("Select"))
                 {
                     foreach (var obj in FindObjectsOfType<MouseSelectable>())
                     {
@@ -72,37 +117,59 @@ namespace Assets.Scripts.GameEngine.Locals
                     }
                     inSelection = false;
                 }
-
             }
-            if (Input.GetButtonDown("Fire2"))
+            else if (issuingOrder)
             {
                 Vector3 loc = GetLocation();
                 GameObject gameObj = GetObject();
-                foreach (GameObject obj in GetSelected())
+                if (currentOrderType == typeof(Smart))
                 {
-                    OrderQueue orderQueue = obj.GetComponentInParent<OrderQueue>();
-                    StoredOrder sto;
-                    if (Input.GetKey(KeyCode.Space))
+                    if (gameObj != Terrain.activeTerrain.gameObject)
                     {
-                        Widget w = gameObj.GetComponentInParent<Widget>();
-                        sto = new StoredOrder(new UnitTarget((Unit)w), typeof(Attack));
+                        currentOrderType = typeof(Attack);
+                        currentTargetType = typeof(UnitTarget);
                     }
                     else
                     {
-                        sto = new(new LocationTarget(loc), typeof(Move));
-                    }
-                    if (!Input.GetKey(KeyCode.RightShift) && !Input.GetKey(KeyCode.LeftShift))
-                    {
-                        orderQueue.IssueImmediate(sto);
-                    }
-                    else
-                    {
-                        orderQueue.Add(sto);
+                        currentOrderType = typeof(Move);
+                        currentTargetType = typeof(LocationTarget);
                     }
                 }
+                StoredOrder sto = new(currentOrderType, Target.Null);
+                if (currentTargetType == typeof(UnitTarget))
+                {
+                    Widget w = gameObj.GetComponentInParent<Widget>();
+                    if (w is not null)
+                    {
+                        sto = new(currentOrderType, new UnitTarget((Unit)w));
+                    }
+                }
+                else if (currentTargetType == typeof(LocationTarget))
+                {
+                    sto = new(currentOrderType, new LocationTarget(loc));
+                }
+                if (sto.OrderType is not null)
+                {
+                    foreach (GameObject obj in Selected)
+                    {
+                        print($"Issuing \"{sto.OrderType.Name}\" to {obj.transform.parent.name}");
+                        OrderQueue orderQueue = obj.GetComponentInParent<OrderQueue>();
+                        if (Input.GetButton("ActionMod"))
+                        {
+                            orderQueue.Add(sto);
+                        }
+                        else
+                        {
+                            orderQueue.IssueImmediate(sto);
+
+                        }
+                    }
+
+                }
+                canSelect = true;
             }
             int fps = (int)Mathf.Floor(1.0f / Time.deltaTime);
-            text.text = fps.ToString();
+            fpsText.text = fps.ToString();
         }
         public bool IsWithinSelectionBounds(GameObject obj)
         {
@@ -131,11 +198,6 @@ namespace Assets.Scripts.GameEngine.Locals
         {
             Selected.Remove(obj);
             obj.GetComponent<MouseSelectable>().DeSelect();
-        }
-
-        public HashSet<GameObject> GetSelected()
-        {
-            return Selected;
         }
     }
 }

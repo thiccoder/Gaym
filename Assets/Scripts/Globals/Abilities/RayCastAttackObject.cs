@@ -19,15 +19,12 @@ namespace Assets.Scripts.Globals.Abilities
             OrderType = typeof(Attack);
             TargetType = typeof(UnitTarget);
         }
-        public override void Cast(Target target)
+        public override void Cast(Target target, Unit caster)
         {
-            Vector3 rayOrigin = AttackPos.position;
-
-            if (Physics.Raycast(rayOrigin, AttackPos.forward, out RaycastHit hitInfo, Range.y))
+            if (Physics.Raycast(caster.Transform.position, caster.Transform.forward, out RaycastHit hitInfo, Range.y))
             {
                 Destroy(hitInfo.collider.gameObject);
             }
-
         }
     }
 }

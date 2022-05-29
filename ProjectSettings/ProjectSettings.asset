@@ -857,11 +857,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: Template3D
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: C:\Users\dom25\Unity Projects\Gaym\Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: CapitalistPig Industries
+  metroCertificateIssuer: CapitalistPig Industries
+  metroCertificateNotAfter: 008c5a350991d901
   metroApplicationDescription: Template_3D
   wsaImages: {}
   metroTileShortName: Gaym

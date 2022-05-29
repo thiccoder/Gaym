@@ -14,6 +14,11 @@ namespace Assets.Scripts.Globals.Abilities
         public Type TargetType;
         public float HealthCost;
         public float StaminaCost;
-        public virtual void Cast(Target target) { }
+        public Vector2 Range;
+        public float Delay;
+        public virtual void Cast(Target target, Unit caster)
+        {
+
+        }
     }
 }

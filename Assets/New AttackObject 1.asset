@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  AttackPos: {fileID: 0}
   Range: {x: 20, y: 2}
-  BulletPrefab: {fileID: 1139926325755694168, guid: 34bc8194632bcd546ae8d00fdc2d1831,
+  Delay: 1
+  Damage: 1.42
+  ProjectilePrefab: {fileID: 1139926325755694168, guid: 34bc8194632bcd546ae8d00fdc2d1831,
     type: 3}
   Projectile: {fileID: 0}

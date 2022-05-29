@@ -11,7 +11,7 @@ namespace Assets.Scripts.Globals
         {
             get
             {
-                var gameobjs = player.GetSelected();
+                var gameobjs = player.Selected;
                 HashSet<Unit> units = new();
                 foreach (var obj in gameobjs)
                 {
