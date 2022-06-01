@@ -19,13 +19,13 @@ namespace Assets.Scripts.GameEngine
         public AttackObject attackObject;
         private float time = 0;
         private float maxHeight;
-        public void Start()
+        private void Start()
         {
             initialPosition = transform.position;
             time = 0;
             maxHeight = Mathf.Tan(Angle * Mathf.PI / 2) * (transform.position - TargetPosition).magnitude / 2;
         }
-        void Update()
+        private void Update()
         {
             if ((transform.position - new Vector3(TargetPosition.x, transform.position.y, TargetPosition.z)).sqrMagnitude > float.Epsilon)
             {

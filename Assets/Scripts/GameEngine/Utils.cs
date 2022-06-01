@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 namespace Assets.Scripts.GameEngine
 {
@@ -18,6 +19,19 @@ namespace Assets.Scripts.GameEngine
                 }
                 return _whiteTexture;
             }
+        }
+        public static Type ByName(string name)
+        {
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies().Reverse())
+            {
+                var tt = assembly.GetType(name);
+                if (tt != null)
+                {
+                    return tt;
+                }
+            }
+
+            throw new Exception("shit");
         }
         public static float GetPathLength(List<Vector3> path)
         {
@@ -70,7 +84,7 @@ namespace Assets.Scripts.GameEngine
             GUI.DrawTexture(rect, WhiteTexture);
             GUI.color = Color.white;
         }
-        public static void DrawScreenRectBorder(Rect rect, float thickness, Color color)
+        public static void DrawScreenRectBcommand(Rect rect, float thickness, Color color)
         {
             DrawScreenRect(new Rect(rect.xMin, rect.yMin, rect.width, thickness), color);
             DrawScreenRect(new Rect(rect.xMin, rect.yMin, thickness, rect.height), color);

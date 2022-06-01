@@ -3,18 +3,18 @@ namespace Assets.Scripts.GameEngine.Locals
 {
     internal class CameraController : MonoBehaviour
     {
-        public int MouseBorder;
+        public int MouseBcommand;
         public float Speed;
         public GameObject Camera;
         public float SpdModStrength = 2;
         public float Distance;
         [SerializeField]
         private Texture2D[] cursors;
-        public void Start()
+        private void Start()
         {
             Camera.transform.localPosition = Camera.transform.forward * -Distance;
         }
-        public void Update()
+        private void Update()
         {
             Vector3 camVelocity = new(Input.GetAxis("CamX"), Input.GetAxis("CamY"), Input.GetAxis("CamZ"));
             Vector2 displacement = Vector2.zero;
@@ -37,7 +37,7 @@ namespace Assets.Scripts.GameEngine.Locals
             }
             if (camVelocity.x == 0 && camVelocity.z == 0)
             {
-                displacement = Input.mousePosition.Displacement(Rect.MinMaxRect(MouseBorder, MouseBorder, Screen.width - MouseBorder, Screen.height - MouseBorder)) * speed;
+                displacement = Input.mousePosition.Displacement(Rect.MinMaxRect(MouseBcommand, MouseBcommand, Screen.width - MouseBcommand, Screen.height - MouseBcommand)) * speed;
                 
             }
             else

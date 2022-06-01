@@ -2,9 +2,9 @@
 using Assets.Scripts.Globals.Abilities;
 using UnityEngine;
 
-namespace Assets.Scripts.Globals.Orders
+namespace Assets.Scripts.Globals.Commands
 {
-    public class Attack : Order
+    public class Attack : Command
     {
         public AttackObject attackObject;
         private UnitTarget target;
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Globals.Orders
                 {
                     if (time >= attackObject.Delay)
                     {
-                        attackObject.Cast(target, (Unit)unit);
+                        attackObject.Cast(target, (Unit)Caster);
                         time = 0;
                     }
                 }
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Globals.Orders
                 time += Time.deltaTime;
             }
         }
-        public override string ToOrderString()
+        public override string ToCommandString()
         {
             return $"Attack {target.Value}";
         }

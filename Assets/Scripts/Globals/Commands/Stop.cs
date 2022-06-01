@@ -1,8 +1,8 @@
 using Assets.Scripts.GameEngine;
 
-namespace Assets.Scripts.Globals.Orders
+namespace Assets.Scripts.Globals.Commands
 {
-    public class Stop : Order
+    public class Stop : Command
     {
         public override void Issue(Target target)
         {
@@ -14,7 +14,7 @@ namespace Assets.Scripts.Globals.Orders
             Issuing = false;
             Completed = false;
         }
-        public override string ToOrderString()
+        public override string ToCommandString()
         {
             return "Stop";
         }

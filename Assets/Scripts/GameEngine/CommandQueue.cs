@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Assets.Scripts.Globals.Orders;
+using Assets.Scripts.Globals.Commands;
 using System;
 using System.Linq.Expressions;
 using System.Collections;
 
 namespace Assets.Scripts.GameEngine
 {
-    internal class OrderQueue : MonoBehaviour
+    internal class CommandQueue : MonoBehaviour
     {
-        private Queue<StoredOrder> orders = new();
-        private Order current;
-        public int Count => orders.Count;
+        private Queue<StoredCommand> commands = new();
+        private Command current;
+        public int Count => commands.Count;
         public void Start()
         {
             current = GetComponent<Stop>();
@@ -29,20 +29,20 @@ namespace Assets.Scripts.GameEngine
                 Issue();
             }
         }
-        public void Add(StoredOrder order)
+        public void Add(StoredCommand command)
         {
-            orders.Enqueue(order);
+            commands.Enqueue(command);
         }
-        public Order Issue()
+        public Command Issue()
         {
             if (Count == 0) throw new InvalidOperationException("Sequence contains no elements");
-            current = orders.Dequeue().Issue(gameObject);
+            current = commands.Dequeue().Issue(gameObject);
             return current;
         }
-        public Order IssueImmediate(StoredOrder order)
+        public Command IssueImmediate(StoredCommand command)
         {
             Clear();
-            Add(order);
+            Add(command);
             return Issue();
         }
         public void Abort()
@@ -55,9 +55,9 @@ namespace Assets.Scripts.GameEngine
         }
         public void Clear()
         {
-            Queue<StoredOrder> newOrders = new(orders.Where(x => !x.GetOrder(gameObject).CanAbort));
-            orders.Clear();
-            orders = newOrders;
+            Queue<StoredCommand> newCommands = new(commands.Where(x => !x.GetCommand(gameObject).CanAbort));
+            commands.Clear();
+            commands = newCommands;
             Abort();
         }
     }

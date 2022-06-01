@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.Globals.Orders
+namespace Assets.Scripts.Globals.Commands
 {
-    public class Move : Order
+    public class Move : Command
     {
         [SerializeField]
         protected NavMeshAgent agent;
@@ -14,10 +14,10 @@ namespace Assets.Scripts.Globals.Orders
         protected float _turnSpeed;
         public float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; agent.speed = value; } }
         public float TurnSpeed { get { return _turnSpeed; } set { _turnSpeed = value; agent.angularSpeed = value; } }
-        public void Start()
+        private void Start()
         {
-            agent.stoppingDistance = unit.Size * 2;
-            agent.radius = unit.Size;
+            agent.stoppingDistance = Caster.Size * 2;
+            agent.radius = Caster.Size;
             agent.updateUpAxis = true;
         }
         public override void Issue(Target target)
@@ -30,8 +30,8 @@ namespace Assets.Scripts.Globals.Orders
             Completed = false;
             agent.isStopped = false;
             agent.destination = target.Value;
-            agent.stoppingDistance = unit.Size * 2;
-            agent.radius = unit.Size;
+            agent.stoppingDistance = Caster.Size * 2;
+            agent.radius = Caster.Size;
         }
         public override void Abort()
         {
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Globals.Orders
             Completed = true;
             Issuing = false;
         }
-        public virtual void Update()
+        private void Update()
         {
             if (Issuing)
             {
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Globals.Orders
                 }
             }
         }
-        public override string ToOrderString()
+        public override string ToCommandString()
         {
             return $"Move to {agent.destination}";
         }

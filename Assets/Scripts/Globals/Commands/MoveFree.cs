@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.Globals.Orders
+namespace Assets.Scripts.Globals.Commands
 {
     public class MoveFree : Move
     {
@@ -16,8 +16,8 @@ namespace Assets.Scripts.Globals.Orders
             Completed = true;
             agent.isStopped = false;
             agent.destination = target.Value;
-            agent.stoppingDistance = unit.Size * 2;
-            agent.radius = unit.Size;
+            agent.stoppingDistance = Caster.Size * 2;
+            agent.radius = Caster.Size;
         }
         public override void Abort()
         {
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Globals.Orders
             Completed = false;
             Issuing = false;
         }
-        public override string ToOrderString()
+        public override string ToCommandString()
         {
             return $"Move freely to {agent.destination}";
         }

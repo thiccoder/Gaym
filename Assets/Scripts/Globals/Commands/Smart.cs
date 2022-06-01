@@ -1,6 +1,6 @@
-﻿namespace Assets.Scripts.Globals.Orders
+﻿namespace Assets.Scripts.Globals.Commands
 {
-    public class Smart : Order
+    public class Smart : Command
     {
         public override void Abort()
         {
@@ -8,7 +8,7 @@
         public override void Issue(Target target)
         {
         }
-        public override string ToOrderString()
+        public override string ToCommandString()
         {
             return "";
         }

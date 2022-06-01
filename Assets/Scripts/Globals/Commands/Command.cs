@@ -2,15 +2,15 @@
 using Assets.Scripts.GameEngine;
 using System;
 
-namespace Assets.Scripts.Globals.Orders
+namespace Assets.Scripts.Globals.Commands
 {
-    public abstract class Order : MonoBehaviour
+    public abstract class Command : MonoBehaviour
     {
         [HideInInspector]
         public bool Completed = false;
         [HideInInspector]
         public bool Issuing = false;
-        public Widget unit;
+        public Widget Caster;
         [HideInInspector]
         public bool CanAbort = true;
         [HideInInspector]
@@ -19,8 +19,8 @@ namespace Assets.Scripts.Globals.Orders
         public abstract void Abort();
         public override string ToString()
         {
-            return $"\"{ToOrderString()}\", {(Issuing ? "I" : "Not i")}ssuing, {(Completed ? "C" : "Not c")}ompleted ";
+            return $"\"{ToCommandString()}\", {(Issuing ? "I" : "Not i")}ssuing, {(Completed ? "C" : "Not c")}ompleted ";
         }
-        public abstract string ToOrderString();
+        public abstract string ToCommandString();
     }
 }

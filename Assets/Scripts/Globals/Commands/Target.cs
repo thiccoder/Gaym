@@ -2,7 +2,7 @@
 using Assets.Scripts.Globals;
 using UnityEngine;
 
-namespace Assets.Scripts.Globals.Orders
+namespace Assets.Scripts.Globals.Commands
 {
     public abstract class Target
     {

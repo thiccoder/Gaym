@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.GameEngine;
-using Assets.Scripts.Globals.Orders;
+using Assets.Scripts.Globals.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Globals.Abilities
         {
             HealthCost = 0;
             StaminaCost = 0;
-            OrderType = typeof(Attack);
+            CommandType = typeof(Attack);
             TargetType = typeof(UnitTarget);
         }
         public override void Cast(Target target, Unit caster)

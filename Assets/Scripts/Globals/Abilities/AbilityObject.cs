@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Globals.Orders;
+﻿using Assets.Scripts.Globals.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Globals.Abilities
 {
-    [CreateAssetMenu(fileName = "New AbilityObject", menuName = "Ability Object", order = 51)]
     public class AbilityObject : ScriptableObject
     {
-        public Type OrderType;
+        public Type CommandType;
         public Type TargetType;
         public float HealthCost;
         public float StaminaCost;

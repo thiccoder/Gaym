@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.GameEngine;
-using Assets.Scripts.Globals.Orders;
+using Assets.Scripts.Globals.Commands;
 using UnityEngine;
 
 namespace Assets.Scripts.Globals
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Globals
         }
         public Transform Transform { get { return _widget.transform; } }
         public bool Alive { get { return Health > 0; } }
-        public HashSet<Order> Orders;
+        public HashSet<Command> Commands;
         public float Health;
         public float MaxHealth;
         public float HealthRegen;
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Globals
         {
             var obj = Object.Instantiate(DefaultPrefab, new Vector3(loc.x, Terrain.activeTerrain.SampleHeight(new Vector3(loc.x, 0, loc.y) + Terrain.activeTerrain.transform.position), loc.y), Quaternion.AngleAxis(facing, new Vector3(0, 1, 0)));
             _widget = obj.GetComponent<Widget>();
-            Orders = new HashSet<Order>(obj.GetComponents<Order>());
+            Commands = new HashSet<Command>(obj.GetComponents<Command>());
             _widget.Unit = this;
             Owner = owner;
         }
