@@ -4,6 +4,7 @@ using Assets.Scripts.Globals.Commands;
 using TMPro;
 using Assets.Scripts.Globals;
 using System;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.GameEngine.Locals
 {
@@ -13,7 +14,7 @@ namespace Assets.Scripts.GameEngine.Locals
         private GameObject MouseObject;
         private Ray ray;
         private bool inSelection = false;
-        private Vector3 mousePositionStart;
+        private Vector2 mousePositionStart;
         private bool canSelect = true;
         private bool issuingCommand;
         private Type currentCommandType;
@@ -24,6 +25,8 @@ namespace Assets.Scripts.GameEngine.Locals
         private Texture2D cursorTexture;
         [SerializeField]
         private List<CommandButton> commandButtons;
+        [SerializeField]
+        private RectTransform selectionTransform;
         public HashSet<GameObject> Selected = new();
         private void Start()
         {
@@ -32,27 +35,8 @@ namespace Assets.Scripts.GameEngine.Locals
                 cmdBtn.OnPress += OnCommandButtonPress;
             }
         }
-
-        private void OnCommandButtonPress(Type commandType, Type targetType)
-        {
-            canSelect = false;
-            currentCommandType = commandType;
-            currentTargetType = targetType;
-            if (targetType == typeof(NullTarget))
-            {
-                issuingCommand = true;
-            }
-            else
-            {
-                Cursor.SetCursor(cursorTexture, new Vector2(cursorTexture.width / 2, cursorTexture.height / 2), CursorMode.Auto);
-            }
-            print($"{currentCommandType.Name}");
-            print($"{currentTargetType.Name}");
-        }
-
         public void Update()
         {
-            print(issuingCommand);
             if (Selected.Count != 0)
             {
 
@@ -71,28 +55,46 @@ namespace Assets.Scripts.GameEngine.Locals
             }
             if (canSelect)
             {
-                if (Input.GetButtonDown("Select"))
+                if (!Utils.IsPointerOverUI())
                 {
-                    inSelection = true;
-                    mousePositionStart = Input.mousePosition;
-                    if (!Input.GetButton("ActionMod"))
+                    if ((!inSelection) && (Input.GetButton("Select") && (Input.GetAxis("MouseX") != 0 || Input.GetAxis("MouseY") != 0)))
                     {
-                        foreach (var obj in FindObjectsOfType<MouseSelectable>())
+                        inSelection = true;
+                        selectionTransform.gameObject.SetActive(true);
+                        var vector3 = Input.mousePosition;
+                        mousePositionStart = new Vector2(vector3.x, vector3.y);
+                        Cursor.visible = false;
+                        if (!Input.GetButton("ActionMod"))
                         {
-                            Remove(obj.gameObject);
+                            foreach (var obj in FindObjectsOfType<MouseSelectable>())
+                            {
+                                Remove(obj.gameObject);
+                            }
                         }
                     }
                 }
-                if (Input.GetButtonUp("Select"))
-                {
-                    foreach (var obj in FindObjectsOfType<MouseSelectable>())
+                    if (Input.GetButtonUp("Select"))
                     {
-                        if (IsWithinSelectionBounds(obj.gameObject))
+                        foreach (var obj in FindObjectsOfType<MouseSelectable>())
                         {
-                            Add(obj.gameObject);
+                            if (IsWithinSelectionBounds(obj.gameObject))
+                            {
+                                Add(obj.gameObject);
+                            }
                         }
+                        Cursor.visible = true;
+                        inSelection = false;
+                        selectionTransform.gameObject.SetActive(false);
                     }
-                    inSelection = false;
+                
+                if (inSelection)
+                {
+                    var vector3 = Input.mousePosition;
+                    Vector2 currentMousePos = new(vector3.x, vector3.y);
+                    var topRight = Vector2.Min(mousePositionStart, currentMousePos);
+                    var bottomLeft = Vector2.Max(mousePositionStart, currentMousePos);
+                    selectionTransform.position = new Vector2(topRight.x, bottomLeft.y);
+                    selectionTransform.sizeDelta = ((bottomLeft - topRight) / selectionTransform.lossyScale);
                 }
             }
             else if (issuingCommand)
@@ -127,18 +129,21 @@ namespace Assets.Scripts.GameEngine.Locals
                 }
                 if (storedCommand.CommandType is not null)
                 {
-                    foreach (GameObject obj in Selected)
+                    if (!Utils.IsPointerOverUI() || currentTargetType == typeof(NullTarget))
                     {
-                        print($"Issuing \"{storedCommand.CommandType.Name}\" to {obj.transform.parent.name}");
-                        CommandQueue commandQueue = obj.GetComponentInParent<CommandQueue>();
-                        if (Input.GetButton("ActionMod"))
+                        foreach (GameObject obj in Selected)
                         {
-                            commandQueue.Add(storedCommand);
-                        }
-                        else
-                        {
-                            commandQueue.IssueImmediate(storedCommand);
+                            print($"Issuing \"{storedCommand.CommandType.Name}\" to {obj.transform.parent.name}");
+                            CommandQueue commandQueue = obj.GetComponentInParent<CommandQueue>();
+                            if (Input.GetButton("ActionMod"))
+                            {
+                                commandQueue.Add(storedCommand);
+                            }
+                            else
+                            {
+                                commandQueue.IssueImmediate(storedCommand);
 
+                            }
                         }
                     }
                 }
@@ -148,6 +153,20 @@ namespace Assets.Scripts.GameEngine.Locals
             }
             int fps = (int)Mathf.Floor(1.0f / Time.deltaTime);
             fpsText.text = fps.ToString();
+        }
+        private void OnCommandButtonPress(Type commandType, Type targetType)
+        {
+            canSelect = false;
+            currentCommandType = commandType;
+            currentTargetType = targetType;
+            if (targetType == typeof(NullTarget))
+            {
+                issuingCommand = true;
+            }
+            else
+            {
+                Cursor.SetCursor(cursorTexture, new Vector2(cursorTexture.width / 2, cursorTexture.height / 2), CursorMode.Auto);
+            }
         }
         private void Cast(bool OnlyTerrain)
         {
@@ -184,17 +203,8 @@ namespace Assets.Scripts.GameEngine.Locals
                 return false;
 
             var camera = Camera.main;
-            var viewportBounds = Utils.GetViewportBounds(camera, mousePositionStart, Input.mousePosition);
+            var viewportBounds = camera.GetViewportBounds(mousePositionStart, Input.mousePosition);
             return viewportBounds.Contains(camera.WorldToViewportPoint(obj.transform.position));
-        }
-        public void OnGUI()
-        {
-            if (inSelection)
-            {
-                var rect = Utils.GetScreenRect(mousePositionStart, Input.mousePosition);
-                Utils.DrawScreenRect(rect, new Color(0.25f, 0.5f, 0.25f, 0.25f));
-                Utils.DrawScreenRectBcommand(rect, 2, new Color(0.25f, 0.5f, 0.25f));
-            }
         }
         public void Add(GameObject obj)
         {

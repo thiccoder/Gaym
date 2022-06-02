@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 namespace Assets.Scripts.GameEngine
 {
     public static class Utils
     {
-        static Texture2D _whiteTexture;
+        private static Texture2D _whiteTexture;
+        private static LayerMask UILayer = LayerMask.NameToLayer("UI");
         public static Texture2D WhiteTexture
         {
             get
@@ -20,7 +23,7 @@ namespace Assets.Scripts.GameEngine
                 return _whiteTexture;
             }
         }
-        public static Type ByName(string name)
+        public static Type GetTypeByName(string name)
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies().Reverse())
             {
@@ -33,38 +36,7 @@ namespace Assets.Scripts.GameEngine
 
             throw new Exception("shit");
         }
-        public static float GetPathLength(List<Vector3> path)
-        {
-            var len = 0.0f;
-            for (int i = 1; i < path.Count - 1; i++)
-            {
-                len += (path[i] - path[i - 1]).magnitude;
-            }
-            return len;
-        }
-        public static Vector3 Bezier(float t, List<Vector3> path)
-        {
-            for (int i = path.Count; i > 1; i--)
-            {
-                List<Vector3> nv = new(i);
-                for (int j = 0; j < i - 1; j++)
-                {
-                    nv.Add(Vector3.Lerp(path[j + 1], path[j], t));
-                }
-                path = nv;
-            }
-            return path[0];
-        }
-        public static Rect GetScreenRect(Vector3 screenPosition1, Vector3 screenPosition2)
-        {
-            screenPosition1.y = Screen.height - screenPosition1.y;
-            screenPosition2.y = Screen.height - screenPosition2.y;
-            var topLeft = Vector3.Min(screenPosition1, screenPosition2);
-            var bottomRight = Vector3.Max(screenPosition1, screenPosition2);
-            return Rect.MinMaxRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
-        }
-
-        public static Bounds GetViewportBounds(Camera camera, Vector3 screenPosition1, Vector3 screenPosition2)
+        public static Bounds GetViewportBounds(this Camera camera, Vector3 screenPosition1, Vector3 screenPosition2)
         {
             var v1 = camera.ScreenToViewportPoint(screenPosition1);
             var v2 = camera.ScreenToViewportPoint(screenPosition2);
@@ -76,40 +48,6 @@ namespace Assets.Scripts.GameEngine
             var bounds = new Bounds();
             bounds.SetMinMax(min, max);
             return bounds;
-        }
-
-        public static void DrawScreenRect(Rect rect, Color color)
-        {
-            GUI.color = color;
-            GUI.DrawTexture(rect, WhiteTexture);
-            GUI.color = Color.white;
-        }
-        public static void DrawScreenRectBcommand(Rect rect, float thickness, Color color)
-        {
-            DrawScreenRect(new Rect(rect.xMin, rect.yMin, rect.width, thickness), color);
-            DrawScreenRect(new Rect(rect.xMin, rect.yMin, thickness, rect.height), color);
-            DrawScreenRect(new Rect(rect.xMax - thickness, rect.yMin, thickness, rect.height), color);
-            DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
-        }
-        public static void PaintTerrain(Terrain terrain)
-        {
-            float[,,] map = new float[terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight, 2];
-
-            for (var x = 0; x < terrain.terrainData.alphamapHeight; x++)
-            {
-                for (var y = 0; y < terrain.terrainData.alphamapWidth; y++)
-                {
-                    var normY = y * 1.0f / (terrain.terrainData.alphamapWidth - 1);
-                    var normX = x * 1.0f / (terrain.terrainData.alphamapHeight - 1);
-
-                    var angle = terrain.terrainData.GetSteepness(normX, normY);
-
-                    var frac = angle / 90;
-                    map[y, x, 0] = frac;
-                    map[y, x, 1] = 1 - frac;
-                }
-            }
-            terrain.terrainData.SetAlphamaps(0, 0, map);
         }
         public static Vector2 Displacement(this Vector3 loc, Rect area)
         {
@@ -131,6 +69,28 @@ namespace Assets.Scripts.GameEngine
                 displacement.y = 1;
             }
             return displacement;
+        }
+        public static bool IsPointerOverUI()
+        {
+            PointerEventData eventData = new(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+            List<RaycastResult> raysastResults = new();
+            EventSystem.current.RaycastAll(eventData, raysastResults);
+            foreach (RaycastResult result in raysastResults)
+            {
+                if (result.gameObject.layer == UILayer)
+                    return true;
+            }
+            return false;
+        }
+        public static void SetSize(this RectTransform transform, Vector2 newSize)
+        {
+            Vector2 oldSize = transform.rect.size;
+            Vector2 deltaSize = newSize - oldSize;
+            transform.offsetMin -= new Vector2(deltaSize.x * transform.pivot.x, deltaSize.y * transform.pivot.y);
+            transform.offsetMax += new Vector2(deltaSize.x * (1f - transform.pivot.x), deltaSize.y * (1f - transform.pivot.y));
         }
     }
 }

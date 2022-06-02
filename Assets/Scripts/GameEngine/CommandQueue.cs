@@ -55,7 +55,7 @@ namespace Assets.Scripts.GameEngine
         }
         public void Clear()
         {
-            Queue<StoredCommand> newCommands = new(commands.Where(x => !x.GetCommand(gameObject).CanAbort));
+            Queue<StoredCommand> newCommands = new(commands.Where(x => !x.Of(gameObject).CanAbort));
             commands.Clear();
             commands = newCommands;
             Abort();

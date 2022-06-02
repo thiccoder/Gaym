@@ -23,8 +23,8 @@ namespace Assets.Scripts.GameEngine.Locals
         private void Start()
         {
             button.onClick.AddListener(ButtonListener);
-            command = Utils.ByName($"Assets.Scripts.Globals.Commands.{commandName}");
-            targetType = Utils.ByName($"Assets.Scripts.Globals.Commands.{targetTypeName}Target");
+            command = Utils.GetTypeByName($"Assets.Scripts.Globals.Commands.{commandName}");
+            targetType = Utils.GetTypeByName($"Assets.Scripts.Globals.Commands.{targetTypeName}Target");
         }
         private void Update()
         {

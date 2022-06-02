@@ -7,9 +7,9 @@ namespace Assets.Scripts.Globals.Commands
     {
         public readonly Target Target;
         public readonly Type CommandType;
-        public Command GetCommand(GameObject obj)
+        public Command Of(GameObject obj)
         {
-            return (Command)obj.GetComponent(CommandType.Name);
+            return obj.GetComponent(CommandType.Name) as Command;
         }
         public StoredCommand(Type commandType, Target target)
         {
