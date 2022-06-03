@@ -57,13 +57,12 @@ namespace Assets.Scripts.GameEngine.Locals
             {
                 if (!Utils.IsPointerOverUI())
                 {
-                    if ((!inSelection) && (Input.GetButton("Select") && (Input.GetAxis("MouseX") != 0 || Input.GetAxis("MouseY") != 0)))
+                    if ((!inSelection) && Input.GetButtonDown("Select"))
                     {
                         inSelection = true;
                         selectionTransform.gameObject.SetActive(true);
                         var vector3 = Input.mousePosition;
                         mousePositionStart = new Vector2(vector3.x, vector3.y);
-                        Cursor.visible = false;
                         if (!Input.GetButton("ActionMod"))
                         {
                             foreach (var obj in FindObjectsOfType<MouseSelectable>())
@@ -73,20 +72,19 @@ namespace Assets.Scripts.GameEngine.Locals
                         }
                     }
                 }
-                    if (Input.GetButtonUp("Select"))
+                if (Input.GetButtonUp("Select"))
+                {
+                    foreach (var obj in FindObjectsOfType<MouseSelectable>())
                     {
-                        foreach (var obj in FindObjectsOfType<MouseSelectable>())
+                        if (IsWithinSelectionBounds(obj.gameObject))
                         {
-                            if (IsWithinSelectionBounds(obj.gameObject))
-                            {
-                                Add(obj.gameObject);
-                            }
+                            Add(obj.gameObject);
                         }
-                        Cursor.visible = true;
-                        inSelection = false;
-                        selectionTransform.gameObject.SetActive(false);
                     }
-                
+                    inSelection = false;
+                    selectionTransform.gameObject.SetActive(false);
+                }
+
                 if (inSelection)
                 {
                     var vector3 = Input.mousePosition;
