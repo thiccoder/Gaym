@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.GameEngine;
+using Assets.Scripts.Globals.Abilities;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,17 +10,7 @@ namespace Assets.Scripts.Globals.Commands
         [SerializeField]
         protected NavMeshAgent agent;
         [SerializeField]
-        protected float _moveSpeed;
-        [SerializeField]
-        protected float _turnSpeed;
-        public float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; agent.speed = value; } }
-        public float TurnSpeed { get { return _turnSpeed; } set { _turnSpeed = value; agent.angularSpeed = value; } }
-        private void Start()
-        {
-            agent.stoppingDistance = Caster.Size * 2;
-            agent.radius = Caster.Size;
-            agent.updateUpAxis = true;
-        }
+        protected Mover Mover;
         public override void Issue(Target target)
         {
             Issue(target as LocationTarget);
@@ -28,14 +19,11 @@ namespace Assets.Scripts.Globals.Commands
         {
             Issuing = true;
             Completed = false;
-            agent.isStopped = false;
-            agent.destination = target.Value;
-            agent.stoppingDistance = Caster.Size * 2;
-            agent.radius = Caster.Size;
+            Mover.OnIssue(target, Caster);
         }
         public override void Abort()
         {
-            agent.isStopped = true;
+            Mover.OnAbort(Caster);
             Completed = true;
             Issuing = false;
         }

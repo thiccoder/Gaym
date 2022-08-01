@@ -37,7 +37,7 @@ namespace Assets.Scripts.Globals
         {
             _widget = wdt;
         }
-        public static explicit operator Widget(Unit u)
+        public static implicit operator Widget(Unit u)
         {
             return u._widget;
         }

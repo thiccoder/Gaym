@@ -16,7 +16,7 @@ namespace Assets.Scripts.GameEngine
         [HideInInspector]
         public Unit Target;
         [HideInInspector]
-        public AttackObject attackObject;
+        public Attacker attackObject;
         private float time = 0;
         private float maxHeight;
         private void Start()

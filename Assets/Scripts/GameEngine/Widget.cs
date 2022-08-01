@@ -74,7 +74,7 @@ namespace Assets.Scripts.GameEngine
             Stamina = _unit.Stamina;
             StaminaRegen = _unit.StaminaRegen;
         }
-        public static explicit operator Unit(Widget w)
+        public static implicit operator Unit(Widget w)
         {
             return w._unit;
         }

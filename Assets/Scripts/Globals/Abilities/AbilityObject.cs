@@ -1,13 +1,9 @@
-﻿using Assets.Scripts.Globals.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Globals.Abilities
 {
-    public class AbilityObject : ScriptableObject
+    public class AbilityObject : ActionObject
     {
         public Type CommandType;
         public Type TargetType;
@@ -15,9 +11,5 @@ namespace Assets.Scripts.Globals.Abilities
         public float StaminaCost;
         public Vector2 Range;
         public float Delay;
-        public virtual void Cast(Target target, Unit caster)
-        {
-
-        }
     }
 }

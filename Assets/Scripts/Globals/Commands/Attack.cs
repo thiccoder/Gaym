@@ -6,7 +6,7 @@ namespace Assets.Scripts.Globals.Commands
 {
     public class Attack : Command
     {
-        public AttackObject attackObject;
+        public Attacker attackObject;
         private UnitTarget target;
         private float time;
         public void Start()
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Globals.Commands
                 {
                     if (time >= attackObject.Delay)
                     {
-                        attackObject.Cast(target, (Unit)Caster);
+                        attackObject.OnIssue(target, (Unit)Caster);
                         time = 0;
                     }
                 }
