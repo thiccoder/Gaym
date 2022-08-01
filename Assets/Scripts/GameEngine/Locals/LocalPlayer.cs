@@ -28,6 +28,7 @@ namespace Assets.Scripts.GameEngine.Locals
         [SerializeField]
         private RectTransform selectionTransform;
         public HashSet<GameObject> Selected = new();
+        private bool clearSelection = true;
         private void Start()
         {
             foreach (var cmdBtn in commandButtons)
@@ -63,13 +64,7 @@ namespace Assets.Scripts.GameEngine.Locals
                         selectionTransform.gameObject.SetActive(true);
                         var vector3 = Input.mousePosition;
                         mousePositionStart = new Vector2(vector3.x, vector3.y);
-                        if (!Input.GetButton("ActionMod"))
-                        {
-                            foreach (var obj in FindObjectsOfType<MouseSelectable>())
-                            {
-                                Remove(obj.gameObject);
-                            }
-                        }
+                        clearSelection = !Input.GetButton("ActionMod");
                     }
                 }
                 if (Input.GetButtonUp("Select"))
@@ -206,6 +201,15 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         public void Add(GameObject obj)
         {
+            if (clearSelection) 
+            {
+                foreach (GameObject gameObj in Selected) 
+                {
+                    gameObj.GetComponent<MouseSelectable>().DeSelect();
+                }
+                Selected.Clear();
+                clearSelection = false;
+            }
             Selected.Add(obj);
             obj.GetComponent<MouseSelectable>().Select();
         }
