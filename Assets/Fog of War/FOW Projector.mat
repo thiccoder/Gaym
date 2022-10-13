@@ -102,8 +102,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Opacity: 0.5
-    - _Opacity1: 1
-    - _Opacity2: 0.5
+    - _Opacity1: 0.5
+    - _Opacity2: 0.25
     - _Parallax: 0.02
     - _SemiOpacity: 0.5
     - _SmoothnessTextureChannel: 0
@@ -114,6 +114,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 0.49803922}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

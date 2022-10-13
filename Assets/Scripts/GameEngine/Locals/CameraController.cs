@@ -16,7 +16,7 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         private void Update()
         {
-            Vector3 camVelocity = new(Input.GetAxis("CamX"), Input.GetAxis("CamY"), Input.GetAxis("CamZ"));
+            Vector3 camVelocity = Vector3.Normalize(new(Input.GetAxis("CamX"), Input.GetAxis("CamY"), Input.GetAxis("CamZ")));
             Vector2 displacement = Vector2.zero;
             var speed = Speed;
             if (Input.GetButton("SpdMod"))
@@ -41,8 +41,8 @@ namespace Assets.Scripts.GameEngine.Locals
             }
             else
             {
-                displacement.x = Mathf.Sign(camVelocity.x) * speed;
-                displacement.y = Mathf.Sign(camVelocity.z) * speed;
+                displacement.x = camVelocity.x * speed;
+                displacement.y = camVelocity.z * speed;
             }
             transform.Translate(new Vector3(displacement.x, 0, displacement.y) * Time.deltaTime);
         }
