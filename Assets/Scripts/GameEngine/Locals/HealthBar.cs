@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Assets.Scripts.GameEngine
+namespace Assets.Scripts.GameEngine.Locals
 {
     public class HealthBar : MonoBehaviour
     {
