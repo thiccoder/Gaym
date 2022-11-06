@@ -10,16 +10,17 @@ namespace Assets.Scripts.Globals.Abilities
     [CreateAssetMenu(fileName = "New Attacker", menuName = "Fire Attacker", order = 53)]
     public class FireAttacker : AreaAttacker
     {
-        [SerializeField] private string tag;
         public FireAttacker() : base() { }
 
         public override void OnIssue(Target target,  Unit caster)
         {
-            foreach (GameObject unit in GameObject.FindGameObjectsWithTag("Enemy")) // ищем объекты по тегу. Думаю, можно изменить метод поиска.
+            foreach (Widget unit in FindObjectsOfType<Widget>())
             {
-                Widget newUnit = unit.GetComponent<Widget>();
-                
-                Vector3 targetPos = newUnit.transform.position;
+                if (unit == (Widget)caster) 
+                { 
+                    continue;
+                }
+                Vector3 targetPos = unit.transform.position;
                 targetPos.y = caster.Transform.position.y;
 
                 Vector3 unitDirection = targetPos - caster.Transform.position;
@@ -28,10 +29,9 @@ namespace Assets.Scripts.Globals.Abilities
 
                 float distance = Vector3.Distance(unit.transform.position, caster.Transform.position);
 
-                if (distance <= AreaDistance && angle >= -AreaAngle && angle <= AreaAngle)
+                if (distance <= Range.y && angle >= -AreaAngle/2 && angle <= AreaAngle/2)
                 {
-                    Debug.Log($"{newUnit} {angle} {distance} attacked!");
-                    DealDamage(caster, newUnit);
+                    DealDamage(caster, unit);
                 }
             }
         }

@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b70d74d1a2c0e40b10193544d36105, type: 3}
+  m_Script: {fileID: 11500000, guid: 28976e65f3714154c84798488c726cc9, type: 3}
   m_Name: New Attacker 3
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  Range: {x: 0, y: 0}
+  Range: {x: 20, y: 5}
   Delay: 1
-  Damage: 5
-  AreaDistance: 50
-  AreaAngle: 90
-  unit: {fileID: 7593723338550699674, guid: 65b624e842b798b448540c764c1f8dd3, type: 3}
+  Damage: 1
+  ProjectilePrefab: {fileID: 1139926325755694168, guid: 34bc8194632bcd546ae8d00fdc2d1831,
+    type: 3}

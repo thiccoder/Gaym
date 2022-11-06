@@ -26,7 +26,7 @@ namespace Assets.Scripts.GameEngine.Locals
         [SerializeField]
         private List<CommandButton> commandButtons;
         [SerializeField]
-        private RectTransform selectionTransform;
+        private RectTransform Selection;
         public HashSet<GameObject> Selected = new();
         private bool clearSelection = true;
         private void Start()
@@ -61,7 +61,7 @@ namespace Assets.Scripts.GameEngine.Locals
                     if ((!inSelection) && Input.GetButtonDown("Select"))
                     {
                         inSelection = true;
-                        selectionTransform.gameObject.SetActive(true);
+                        Selection.gameObject.SetActive(true);
                         var vector3 = Input.mousePosition;
                         mousePositionStart = new Vector2(vector3.x, vector3.y);
                         clearSelection = !Input.GetButton("ActionMod");
@@ -77,7 +77,7 @@ namespace Assets.Scripts.GameEngine.Locals
                         }
                     }
                     inSelection = false;
-                    selectionTransform.gameObject.SetActive(false);
+                    Selection.gameObject.SetActive(false);
                 }
 
                 if (inSelection)
@@ -86,8 +86,8 @@ namespace Assets.Scripts.GameEngine.Locals
                     Vector2 currentMousePos = new(vector3.x, vector3.y);
                     var topRight = Vector2.Min(mousePositionStart, currentMousePos);
                     var bottomLeft = Vector2.Max(mousePositionStart, currentMousePos);
-                    selectionTransform.position = new Vector2(topRight.x, bottomLeft.y);
-                    selectionTransform.sizeDelta = ((bottomLeft - topRight) / selectionTransform.lossyScale);
+                    Selection.position = new Vector2(topRight.x, bottomLeft.y);
+                    Selection.sizeDelta = ((bottomLeft - topRight) / Selection.lossyScale);
                 }
             }
             else if (issuingCommand)

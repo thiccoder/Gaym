@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  AttackPos: {fileID: 0}
-  Range: {x: 20, y: 2}
+  Range: {x: 20, y: 5}
+  Delay: 0.5
+  Damage: 1

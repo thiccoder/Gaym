@@ -16,5 +16,5 @@ MonoBehaviour:
   StaminaCost: 0
   Range: {x: Infinity, y: 0}
   Delay: 0
-  MoveSpeed: 5
-  TurnSpeed: 120
+  MoveSpeed: 10
+  TurnSpeed: 10

@@ -3,7 +3,7 @@ namespace Assets.Scripts.GameEngine.Locals
 {
     internal class CameraController : MonoBehaviour
     {
-        public int MouseBorder;
+        public float MouseBorder;
         public float Speed;
         public GameObject Camera;
         public float SpdModStrength = 2;
@@ -27,17 +27,20 @@ namespace Assets.Scripts.GameEngine.Locals
             {
                 if (Input.GetButton("ActionMod"))
                 {
-                    Distance -= camVelocity.y * speed / 10;
+                    Camera.transform.rotation *= Quaternion.AngleAxis(2 * speed * camVelocity.y, Camera.transform.right);
                 }
                 else
                 {
-                    Camera.transform.rotation *= Quaternion.AngleAxis(2 * speed * camVelocity.y, Camera.transform.right);
+                    Distance -= camVelocity.y * speed / 10;
                 }
                 Camera.transform.localPosition = Camera.transform.forward * -Distance;
             }
             if (camVelocity.x == 0 && camVelocity.z == 0)
             {
-                displacement = Input.mousePosition.Displacement(Rect.MinMaxRect(MouseBorder, MouseBorder, Screen.width - MouseBorder, Screen.height - MouseBorder)) * speed;
+                if ((Mathf.Abs(Screen.width / 2 - Input.mousePosition.x) <= Screen.width / 2) && (Mathf.Abs(Screen.height / 2 - Input.mousePosition.y) <= Screen.height / 2))
+                {
+                    displacement = Input.mousePosition.Displacement(Rect.MinMaxRect(Screen.width * MouseBorder, Screen.height * MouseBorder, Screen.width * (1 - MouseBorder), Screen.height * (1 - MouseBorder))) * speed;
+                }
             }
             else
             {

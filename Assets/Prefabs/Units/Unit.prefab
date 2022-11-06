@@ -298,9 +298,9 @@ MonoBehaviour:
   DeltaHeight: 0.25
   Size: 0.5
   modelOffset: {x: 0, y: 0, z: 0}
-  Health: 6.67
-  MaxHealth: 9.42
-  HealthRegen: 0.01
+  Health: 10
+  MaxHealth: 10
+  HealthRegen: 0.1
   Stamina: 0
   MaxStamina: 0
   StaminaRegen: 0
@@ -336,11 +336,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3009847049028208184}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2462de16d0c89e24481d2cde864f52d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uibar: {fileID: 0}
+  uiBarPrefab: {fileID: 422537322707835942, guid: 4d0cf36be9338d943b398de4c41d3c0e,
+    type: 3}
   widget: {fileID: 3009847049028208179}
-  barHeight: 0
+  barHeight: 2

@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28976e65f3714154c84798488c726cc9, type: 3}
-  m_Name: New Attacker
+  m_Script: {fileID: 11500000, guid: 5aa294286dd085a4fa048f15fbd3f3d2, type: 3}
+  m_Name: New Mover 2
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  Range: {x: 20, y: 2}
-  Delay: 1
-  Damage: 1.42
-  ProjectilePrefab: {fileID: 1139926325755694168, guid: 34bc8194632bcd546ae8d00fdc2d1831,
-    type: 3}
-  Projectile: {fileID: 0}
+  Range: {x: Infinity, y: 0}
+  Delay: 0
+  MoveSpeed: 5
+  TurnSpeed: 120

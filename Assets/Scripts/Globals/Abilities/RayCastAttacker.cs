@@ -14,9 +14,9 @@ namespace Assets.Scripts.Globals.Abilities
         }
         public override void OnIssue(Target target, Unit caster)
         {
-            if (Physics.Raycast(caster.Transform.position, caster.Transform.forward, out RaycastHit hitInfo, Range.y))
+            if (Physics.Raycast(caster.Transform.position, Vector3.Normalize((target as UnitTarget).Value.Transform.position - caster.Transform.position), Range.y))
             {
-                Destroy(hitInfo.collider.gameObject);
+                DealDamage(caster, (target as UnitTarget).Value);
             }
         }
     }

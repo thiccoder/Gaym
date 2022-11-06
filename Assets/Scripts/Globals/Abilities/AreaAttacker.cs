@@ -9,8 +9,6 @@ namespace Assets.Scripts.Globals.Abilities
     public class AreaAttacker : Attacker
     {
         [SerializeField]
-        protected float AreaDistance;
-        [SerializeField]
         protected float AreaAngle;
         public AreaAttacker() : base()
         {
