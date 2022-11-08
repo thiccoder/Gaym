@@ -1,4 +1,5 @@
 using UnityEngine;
+using Assets.Scripts.GameEngine.Locals.UI;
 namespace Assets.Scripts.GameEngine.Locals
 {
     public class HealthBar : MonoBehaviour

@@ -52,10 +52,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_AgentTypeID
+      value: 658490984
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: Health
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208184, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Name
-      value: Unit (1) Variant
+      value: Unit (3) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -65,7 +80,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.498821
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -75,7 +90,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.063473
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}

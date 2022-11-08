@@ -27,7 +27,7 @@ namespace Assets.Scripts.GameEngine.Locals
         private List<CommandButton> commandButtons;
         [SerializeField]
         private RectTransform Selection;
-        public HashSet<GameObject> Selected = new();
+        public HashSet<Widget> Selected = new();
         private bool clearSelection = true;
         private void Start()
         {
@@ -73,7 +73,7 @@ namespace Assets.Scripts.GameEngine.Locals
                     {
                         if (IsWithinSelectionBounds(obj.gameObject))
                         {
-                            Add(obj.gameObject);
+                            Add(obj.transform.parent.GetComponent<Widget>());
                         }
                     }
                     inSelection = false;
@@ -124,9 +124,9 @@ namespace Assets.Scripts.GameEngine.Locals
                 {
                     if (!Utils.IsPointerOverUI() || currentTargetType == typeof(NullTarget))
                     {
-                        foreach (GameObject obj in Selected)
+                        foreach (Widget obj in Selected)
                         {
-                            print($"Issuing \"{storedCommand.CommandType.Name}\" to {obj.transform.parent.name}");
+                            print($"Issuing \"{storedCommand.CommandType.Name}\" to {obj.transform.name}");
                             CommandQueue commandQueue = obj.GetComponentInParent<CommandQueue>();
                             if (Input.GetButton("ActionMod"))
                             {
@@ -199,24 +199,24 @@ namespace Assets.Scripts.GameEngine.Locals
             var viewportBounds = camera.GetViewportBounds(mousePositionStart, Input.mousePosition);
             return viewportBounds.Contains(camera.WorldToViewportPoint(obj.transform.position));
         }
-        public void Add(GameObject obj)
+        public void Add(Widget obj)
         {
             if (clearSelection) 
             {
-                foreach (GameObject gameObj in Selected) 
+                foreach (Widget gameObj in Selected) 
                 {
-                    gameObj.GetComponent<MouseSelectable>().DeSelect();
+                    gameObj.GetComponentInChildren<MouseSelectable>().DeSelect();
                 }
                 Selected.Clear();
                 clearSelection = false;
             }
             Selected.Add(obj);
-            obj.GetComponent<MouseSelectable>().Select();
+            obj.GetComponentInChildren<MouseSelectable>().Select();
         }
-        public void Remove(GameObject obj)
+        public void Remove(Widget obj)
         {
             Selected.Remove(obj);
-            obj.GetComponent<MouseSelectable>().DeSelect();
+            obj.GetComponentInChildren<MouseSelectable>().DeSelect();
         }
     }
 }
