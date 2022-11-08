@@ -14,6 +14,7 @@ namespace Assets.Scripts.Globals.Abilities
         }
         public override void OnIssue(Target target, Unit caster)
         {
+            PlayEffects(caster);
             if (Physics.Raycast(caster.Transform.position, Vector3.Normalize((target as UnitTarget).Value.Transform.position - caster.Transform.position), Range.y))
             {
                 DealDamage(caster, (target as UnitTarget).Value);

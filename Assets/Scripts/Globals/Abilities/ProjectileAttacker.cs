@@ -16,6 +16,7 @@ namespace Assets.Scripts.Globals.Abilities
         }
         public override void OnIssue(Target target, Unit caster)
         {
+            PlayEffects(caster);
             Projectile projectile = Instantiate(ProjectilePrefab, caster.Transform.position, caster.Transform.rotation).GetComponent<Projectile>();
             projectile.TargetPosition = (target as UnitTarget).Value.Transform.position;
             projectile.attackObject = this;
