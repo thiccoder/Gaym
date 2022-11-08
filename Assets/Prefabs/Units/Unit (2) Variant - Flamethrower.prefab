@@ -12,10 +12,15 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: Height
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208184, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Name
-      value: Unit (2)
+      value: Unit (2) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.GameEngine;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 namespace Assets.Scripts.Globals.Abilities
 {
@@ -34,6 +34,8 @@ namespace Assets.Scripts.Globals.Abilities
                     DealDamage(caster, unit);
                 }
             }
+            // ’з как по-другому поворот реализовать. Quanternion.Slerp не катит.
+            caster.Transform.LookAt((target as UnitTarget).Value.Transform.position);
         }
     }
 }
