@@ -37,17 +37,19 @@ namespace Assets.Scripts.GameEngine.Locals.UI
         public bool UpdateValues;
         void Update()
         {
-
-            if (UpdateValues) 
+            if (_viewingUnit is not null)
             {
-                if (UpdateMaxVals) 
+                if (UpdateValues)
                 {
-                    UpdateMaxVals = false;
-                    Health.MaxVal = _viewingUnit.MaxHealth;
-                    Stamina.MaxVal = _viewingUnit.MaxStamina;
+                    if (UpdateMaxVals)
+                    {
+                        UpdateMaxVals = false;
+                        Health.MaxVal = _viewingUnit.MaxHealth;
+                        Stamina.MaxVal = _viewingUnit.MaxStamina;
+                    }
+                    Health.Value = _viewingUnit.Health;
+                    Stamina.Value = _viewingUnit.Stamina;
                 }
-                Health.Value = _viewingUnit.Health;
-                Stamina.Value = _viewingUnit.Stamina;
             }
         }
     }

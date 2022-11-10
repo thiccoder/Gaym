@@ -11,9 +11,10 @@ namespace Assets.Scripts.Globals.Abilities
     public class FireAttacker : AreaAttacker
     {
         public FireAttacker() : base() { }
-
         public override void OnIssue(Target target,  Unit caster)
         {
+            PlayEffects(caster);
+            caster.Transform.LookAt((target as UnitTarget).Value.Transform.position);
             foreach (Widget unit in FindObjectsOfType<Widget>())
             {
                 if (unit == (Widget)caster) 
@@ -34,8 +35,6 @@ namespace Assets.Scripts.Globals.Abilities
                     DealDamage(caster, unit);
                 }
             }
-            // ’з как по-другому поворот реализовать. Quanternion.Slerp не катит.
-            caster.Transform.LookAt((target as UnitTarget).Value.Transform.position);
         }
     }
 }

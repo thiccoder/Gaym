@@ -18,13 +18,20 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         private void Update()
         {
-            Vector2 uibarPos = Camera.main.WorldToScreenPoint(gameObject.transform.position + Vector3.up * barHeight);
-            uibar.transform.position = uibarPos;
-            uibar.Value = widget.Health/widget.MaxHealth;
+            if (uibar is not null)
+            {
+                Vector2 uibarPos = Camera.main.WorldToScreenPoint(gameObject.transform.position + Vector3.up * barHeight);
+                uibar.transform.position = uibarPos;
+                uibar.Value = widget.Health / widget.MaxHealth;
+            }
         }
         private void OnDestroy()
         {
-            Destroy(uibar.gameObject);
+            if (uibar is not null)
+            {
+                Destroy(uibar.gameObject);
+                uibar = null;
+            }
         }
     }
 }

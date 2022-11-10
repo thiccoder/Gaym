@@ -13,6 +13,21 @@ namespace Assets.Scripts.Globals.Abilities
         {
             
         }
-
+        public void PlayEffects(Unit caster)
+        {
+            AttackEffectLinker fxlinker = caster.Transform.GetComponent<AttackEffectLinker>();
+            if (fxlinker is not null)
+            {
+                fxlinker.Play();
+            }
+        }
+        public void StopEffects(Unit caster)
+        {
+            AttackEffectLinker fxlinker = caster.Transform.GetComponent<AttackEffectLinker>();
+            if (fxlinker is not null)
+            {
+                fxlinker.Stop();
+            }
+        }
     }
 }
