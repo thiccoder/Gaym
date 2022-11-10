@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3009847048454826969, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847048454826969, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3009847048980428584, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Mesh
@@ -151,7 +161,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208184, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Name
-      value: Trooper
+      value: Trooper (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -161,17 +171,17 @@ PrefabInstance:
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 7.6915064
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0.011664877
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 7.9050283
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  Range: {x: 15, y: 10}
+  Range: {x: 0, y: 8}
   Delay: 0.8
   Damage: 3
