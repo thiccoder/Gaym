@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5184096368975517831
+--- !u!1001 &3266661667302298708
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: Health
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: MaxHealth
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208184, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Name
-      value: Unit (4) Variant
+      value: BMP
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -84,18 +84,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.627823
+      value: 51.98822
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02000005
+      value: -0.0000028517097
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.984093
+      value: 6.566641
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -134,31 +149,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 589fc012834504b498066d2ec07ddca0, type: 3}
---- !u!114 &7941117040582467252 stripped
+--- !u!114 &328934894172754535 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
     type: 3}
-  m_PrefabInstance: {fileID: 5184096368975517831}
+  m_PrefabInstance: {fileID: 3266661667302298708}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7941117040582467263}
+  m_GameObject: {fileID: 328934894172754540}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ced98b84d207634bb7f4e7e6e493a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7941117040582467263 stripped
+--- !u!1 &328934894172754540 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3009847049028208184, guid: 589fc012834504b498066d2ec07ddca0,
     type: 3}
-  m_PrefabInstance: {fileID: 5184096368975517831}
+  m_PrefabInstance: {fileID: 3266661667302298708}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8775258623664268039
+--- !u!114 &1649202908427802299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7941117040582467263}
+  m_GameObject: {fileID: 328934894172754540}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e754a8475604c6d4ab175a2b1d2e9748, type: 3}
@@ -166,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Completed: 0
   Issuing: 0
-  Caster: {fileID: 7941117040582467252}
+  Caster: {fileID: 328934894172754535}
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
-  attackObject: {fileID: 11400000, guid: 6481e172e13d69a448c9960da7ac7412, type: 2}
+  attackObject: {fileID: 11400000, guid: 03f845dfe3bd1584c9d095f6782567a2, type: 2}

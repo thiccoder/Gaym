@@ -7,14 +7,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b70d74d1a2c0e40b10193544d36105, type: 3}
-  m_Name: New Attacker 2
+  m_Script: {fileID: 11500000, guid: b283dbaf4d87be241a30afffffb1fabf, type: 3}
+  m_Name: New Attacker - BMP
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  Range: {x: 20, y: 10}
-  Delay: 0.25
-  Damage: 0.25
-  AreaAngle: 30
+  Range: {x: 0, y: 0}
+  Delay: 0
+  Damage: 0
