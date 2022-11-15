@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Height: 2
-  DeltaHeight: 0.25
+  DeltaHeight: 0
   Size: 0.5
   modelOffset: {x: 0, y: 0, z: 0}
   Health: 10
