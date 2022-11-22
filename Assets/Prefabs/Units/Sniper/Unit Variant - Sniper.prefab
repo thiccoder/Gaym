@@ -305,8 +305,8 @@ MonoBehaviour:
   Stamina: 0
   MaxStamina: 0
   StaminaRegen: 0
-  Name: 
-  Tooltip: 
+  Name: "\u0421\u043D\u0430\u0439\u043F\u0435\u0440"
+  Tooltip: "\u0421\u043D\u0430\u0439\u043F\u0435\u0440"
   Model: {fileID: 9102478399341433944}
 --- !u!195 &9102478400822819959
 NavMeshAgent:

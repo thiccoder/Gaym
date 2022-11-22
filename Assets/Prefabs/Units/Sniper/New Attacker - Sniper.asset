@@ -15,5 +15,5 @@ MonoBehaviour:
   HealthCost: 0
   StaminaCost: 0
   Range: {x: 0, y: 50}
-  Delay: 5
+  Delay: 1
   Damage: 40
