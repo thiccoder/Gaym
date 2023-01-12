@@ -27,12 +27,14 @@ namespace Assets.Scripts.Globals.Abilities
                 Vector3 unitDirection = targetPos - caster.Transform.position;
 
                 float angle = Vector3.SignedAngle(unitDirection, caster.Transform.forward, Vector3.up);
-
-                float distance = Vector3.Distance(unit.transform.position, caster.Transform.position);
-
-                if (distance <= Range.y && angle >= -AreaAngle/2 && angle <= AreaAngle/2)
+                if (angle >= -AreaAngle / 2 && angle <= AreaAngle / 2)
                 {
-                    DealDamage(caster, unit);
+                    float distance = Vector3.Distance(unit.transform.position, caster.Transform.position);
+
+                    if (distance <= Range.y)
+                    {
+                        DealDamage(caster, unit);
+                    }
                 }
             }
         }
