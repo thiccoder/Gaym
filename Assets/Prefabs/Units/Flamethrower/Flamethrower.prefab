@@ -20,7 +20,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208184, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Name
-      value: Unit (2) Variant
+      value: Flamethrower
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -77,6 +77,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208191, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: Mover
+      value: 
+      objectReference: {fileID: 11400000, guid: 3d34c29126cb74c43a528b8a71c75440,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 589fc012834504b498066d2ec07ddca0, type: 3}
 --- !u!1 &5531887351510558054 stripped

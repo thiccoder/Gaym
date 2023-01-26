@@ -40,19 +40,20 @@ namespace Assets.Scripts.GameEngine.Locals
         {
             if (Selected.Count != 0)
             {
+                issuingCommand = Input.GetButton("Select");
+                if (Input.GetButtonDown("Smart"))
+                {
 
-                issuingCommand |= Input.GetButtonDown("Select");
-                if (canSelect)
-                {
-                    currentCommandType = null;
-                }
-                if (Input.GetButton("Smart"))
-                {
                     canSelect = false;
                     currentCommandType = typeof(Smart);
                     currentTargetType = typeof(NullTarget);
                     issuingCommand = true;
                 }
+                if (canSelect)
+                {
+                    currentCommandType = null;
+                }
+
             }
             if (canSelect)
             {
@@ -87,7 +88,7 @@ namespace Assets.Scripts.GameEngine.Locals
                     var topRight = Vector2.Min(mousePositionStart, currentMousePos);
                     var bottomLeft = Vector2.Max(mousePositionStart, currentMousePos);
                     Selection.position = new Vector2(topRight.x, bottomLeft.y);
-                    Selection.sizeDelta = ((bottomLeft - topRight) / Selection.lossyScale);
+                    Selection.sizeDelta = (bottomLeft - topRight) / Selection.lossyScale;
                 }
             }
             else if (issuingCommand)
@@ -111,7 +112,7 @@ namespace Assets.Scripts.GameEngine.Locals
                 if (currentTargetType == typeof(UnitTarget))
                 {
                     Widget w = gameObj.GetComponentInParent<Widget>();
-                    if (w is not null)
+                    if (w != null)
                     {
                         storedCommand = new(currentCommandType, new UnitTarget((Unit)w));
                     }
@@ -140,7 +141,6 @@ namespace Assets.Scripts.GameEngine.Locals
                         }
                     }
                 }
-                issuingCommand = false;
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                 canSelect = true;
             }
@@ -201,9 +201,9 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         public void Add(Widget obj)
         {
-            if (clearSelection) 
+            if (clearSelection)
             {
-                foreach (Widget gameObj in Selected) 
+                foreach (Widget gameObj in Selected)
                 {
                     gameObj.GetComponentInChildren<MouseSelectable>().DeSelect();
                 }

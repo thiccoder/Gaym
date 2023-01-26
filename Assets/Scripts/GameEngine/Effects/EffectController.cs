@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EffectController : MonoBehaviour
+namespace Assets.Scripts.GameEngine.Effects
 {
-    [SerializeField]
-    private List<ParticleSystem> fx;
-    public void Play()
+    public class EffectController : MonoBehaviour
     {
-        foreach (ParticleSystem effect in fx)
+        [SerializeField]
+        private List<ParticleSystem> fx;
+        public void Play()
         {
-            effect.Play();
+            foreach (ParticleSystem effect in fx)
+            {
+                effect.Play();
+            }
         }
-    }
-    public void Stop()
-    {
-        foreach (ParticleSystem effect in fx)
+        public void Stop()
         {
-            effect.Stop();
+            foreach (ParticleSystem effect in fx)
+            {
+                effect.Stop();
+            }
         }
     }
 }

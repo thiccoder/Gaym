@@ -17,6 +17,7 @@ namespace Assets.Scripts.Globals
             }
             set
             {
+                _owner.AllUnits.Remove(this);
                 _owner = value;
                 _owner.AllUnits.Add(this);
             }
