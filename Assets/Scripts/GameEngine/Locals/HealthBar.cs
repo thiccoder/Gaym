@@ -18,7 +18,7 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         private void Update()
         {
-            if (uibar is not null)
+            if (uibar != null)
             {
                 Vector2 uibarPos = Camera.main.WorldToScreenPoint(gameObject.transform.position + Vector3.up * barHeight);
                 uibar.transform.position = uibarPos;
@@ -27,7 +27,7 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         private void OnDestroy()
         {
-            if (uibar is not null)
+            if (uibar != null)
             {
                 Destroy(uibar.gameObject);
                 uibar = null;

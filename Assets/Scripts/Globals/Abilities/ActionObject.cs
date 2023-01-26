@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Globals.Commands;
+using Assets.Scripts.GameEngine.Effects;
 using UnityEngine;
 
 namespace Assets.Scripts.Globals.Abilities
@@ -12,6 +13,10 @@ namespace Assets.Scripts.Globals.Abilities
         public virtual void OnAbort(Unit caster) 
         {
             
+        }
+        public virtual void OnUpdate(Unit caster)
+        {
+
         }
         public void PlayEffects(Unit caster)
         {

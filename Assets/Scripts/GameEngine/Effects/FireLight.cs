@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace GameEngine.Effects
+namespace Assets.Scripts.GameEngine.Effects
 {
     public class FireLight : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace GameEngine.Effects
+namespace Assets.Scripts.GameEngine.Effects
 {
     public class WaterHoseParticles : MonoBehaviour
     {

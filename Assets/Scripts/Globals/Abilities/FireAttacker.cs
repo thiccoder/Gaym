@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.GameEngine;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Assets.Scripts.Globals.Abilities
 {

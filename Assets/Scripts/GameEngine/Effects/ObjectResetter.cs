@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameEngine.Effects
+namespace Assets.Scripts.GameEngine.Effects
 {
     public class ObjectResetter : MonoBehaviour
     {

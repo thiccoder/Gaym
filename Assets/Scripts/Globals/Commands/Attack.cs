@@ -34,12 +34,15 @@ namespace Assets.Scripts.Globals.Commands
         {
             if (Issuing)
             {
-                if (target.Value.Alive)
+                if (target != null && target.Value.Alive)
                 {
                     if (time >= attackObject.Delay)
                     {
-                        attackObject.OnIssue(target, (Unit)Caster);
                         time = 0;
+                    }
+                    if (time < float.Epsilon) 
+                    {
+                        attackObject.OnIssue(target, (Unit)Caster);
                     }
                 }
                 else

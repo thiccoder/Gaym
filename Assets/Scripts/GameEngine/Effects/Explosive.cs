@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace GameEngine.Effects
+namespace Assets.Scripts.GameEngine.Effects
 {
     public class Explosive : MonoBehaviour
     {

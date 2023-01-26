@@ -31,8 +31,9 @@ namespace Assets.Scripts.Globals.Commands
         {
             if (Issuing)
             {
-                float distanceToTarget = Vector3.SqrMagnitude(transform.position - agent.destination);
-                if (distanceToTarget < agent.stoppingDistance * agent.stoppingDistance)
+                Mover.OnUpdate(Caster);
+                float distanceToTargetSqr = Vector3.SqrMagnitude(transform.position - agent.destination);
+                if (distanceToTargetSqr < agent.stoppingDistance * agent.stoppingDistance)
                 {
                     Completed = true;
                     Issuing = false;

@@ -58,7 +58,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Assets/UI design.png
-Assets/UI design.pdn
-Assets/UI design.psd
-UserSettings/
+**/[Uu]ser[Ss]ettings/
+**/[Uu]ser[Ss]ettings/[Ll]ayouts/

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GameEngine.Effects
+namespace Assets.Scripts.GameEngine.Effects
 {
     public class ParticleSystemMultiplier : MonoBehaviour
     {

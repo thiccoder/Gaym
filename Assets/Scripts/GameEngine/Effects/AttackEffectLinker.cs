@@ -1,25 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AttackEffectLinker : MonoBehaviour
+namespace Assets.Scripts.GameEngine.Effects
 {
-    [SerializeField]
-    private GameObject EffectPrefab;
-    private EffectController fx;
-    void Start()
+    public class AttackEffectLinker : MonoBehaviour
     {
-        fx = Instantiate(EffectPrefab).GetComponent<EffectController>();
-        fx.transform.parent = transform;
-        fx.transform.localPosition = Vector3.zero;
-        fx.Stop();
-    }
-    public void Play() 
-    {
-        fx.Play();
-    }
-    public void Stop()
-    {
-        fx.Stop();
+        [SerializeField]
+        private GameObject EffectPrefab;
+        private EffectController fx;
+        void Start()
+        {
+            fx = Instantiate(EffectPrefab).GetComponent<EffectController>();
+            fx.transform.parent = transform;
+            fx.transform.localPosition = Vector3.zero;
+            fx.Stop();
+        }
+        public void Play()
+        {
+            fx.Play();
+        }
+        public void Stop()
+        {
+            fx.Stop();
+        }
     }
 }
