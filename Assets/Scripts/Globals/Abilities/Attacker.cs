@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Globals.Abilities
 {
-    public class Attacker : AbilityObject
+    public class Attacker : CommandObject
     {
         public float Damage;
         public Attacker() : base()

@@ -5,6 +5,7 @@ using TMPro;
 using Assets.Scripts.Globals;
 using System;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Assets.Scripts.GameEngine.Locals
 {
@@ -29,6 +30,7 @@ namespace Assets.Scripts.GameEngine.Locals
         private RectTransform Selection;
         public HashSet<Widget> Selected = new();
         private bool clearSelection = true;
+        private bool selectionChanged = false;
         private void Start()
         {
             foreach (var cmdBtn in commandButtons)
@@ -52,6 +54,22 @@ namespace Assets.Scripts.GameEngine.Locals
                 if (canSelect)
                 {
                     currentCommandType = null;
+                }
+                if (!inSelection && selectionChanged)
+                {
+                    List<Type> commands = new();
+                    foreach (Widget unit in Selected)
+                    {
+                        foreach (Command command in unit.GetComponents<Command>())
+                        {
+                            commands.Add(command.GetType());
+                        }
+                    }
+                    foreach (CommandButton btn in commandButtons)
+                    {
+                        btn.IsActive = commands.Contains(btn.Command);
+                    }
+                    selectionChanged = false;
                 }
 
             }
@@ -127,16 +145,24 @@ namespace Assets.Scripts.GameEngine.Locals
                     {
                         foreach (Widget obj in Selected)
                         {
-                            print($"Issuing \"{storedCommand.CommandType.Name}\" to {obj.transform.name}");
-                            CommandQueue commandQueue = obj.GetComponentInParent<CommandQueue>();
-                            if (Input.GetButton("ActionMod"))
+                            List<Type> commands = new();
+                            foreach (Command command in obj.GetComponents<Command>())
                             {
-                                commandQueue.Add(storedCommand);
+                                commands.Add(command.GetType());
                             }
-                            else
+                            if (commands.Contains(currentCommandType))
                             {
-                                commandQueue.IssueImmediate(storedCommand);
+                                print($"Issuing \"{storedCommand.CommandType.Name}\" to {obj.transform.name}");
+                                CommandQueue commandQueue = obj.GetComponentInParent<CommandQueue>();
+                                if (Input.GetButton("ActionMod"))
+                                {
+                                    commandQueue.Add(storedCommand);
+                                }
+                                else
+                                {
+                                    commandQueue.IssueImmediate(storedCommand);
 
+                                }
                             }
                         }
                     }
@@ -212,11 +238,13 @@ namespace Assets.Scripts.GameEngine.Locals
             }
             Selected.Add(obj);
             obj.GetComponentInChildren<MouseSelectable>().Select();
+            selectionChanged = true;    
         }
         public void Remove(Widget obj)
         {
             Selected.Remove(obj);
             obj.GetComponentInChildren<MouseSelectable>().DeSelect();
+            selectionChanged = true;
         }
     }
 }

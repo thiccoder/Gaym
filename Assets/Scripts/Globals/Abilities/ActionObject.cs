@@ -20,7 +20,7 @@ namespace Assets.Scripts.Globals.Abilities
         }
         public void PlayEffects(Unit caster)
         {
-            AttackEffectLinker fxlinker = caster.Transform.GetComponent<AttackEffectLinker>();
+            VisualEffectLinker fxlinker = caster.Transform.GetComponent<VisualEffectLinker>();
             if (fxlinker is not null)
             {
                 fxlinker.Play();
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Globals.Abilities
         }
         public void StopEffects(Unit caster)
         {
-            AttackEffectLinker fxlinker = caster.Transform.GetComponent<AttackEffectLinker>();
+            VisualEffectLinker fxlinker = caster.Transform.GetComponent<VisualEffectLinker>();
             if (fxlinker is not null)
             {
                 fxlinker.Stop();

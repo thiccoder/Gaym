@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Globals.Abilities
 {
-    internal class Builder : AbilityObject
+    internal class Builder : CommandObject
     {
         public float BuildSpeed;
         public float TurnSpeed;

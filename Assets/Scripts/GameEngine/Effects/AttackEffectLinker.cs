@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Assets.Scripts.GameEngine.Effects
 {
-    public class AttackEffectLinker : MonoBehaviour
+    public class VisualEffectLinker : MonoBehaviour
     {
         [SerializeField]
         private GameObject EffectPrefab;
-        private EffectController fx;
+        private VisualEffectController fx;
         void Start()
         {
-            fx = Instantiate(EffectPrefab).GetComponent<EffectController>();
+            fx = Instantiate(EffectPrefab).GetComponent<VisualEffectController>();
             fx.transform.parent = transform;
             fx.transform.localPosition = Vector3.zero;
             fx.Stop();

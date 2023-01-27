@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Globals.Commands
 {
-    public class CollectResourses : Command
+    public class Collect : Command
     {
         private UnitTarget targetResourses;
         private UnitTarget targetBase;

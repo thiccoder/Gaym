@@ -17,18 +17,29 @@ namespace Assets.Scripts.GameEngine.Locals
         private string commandName;
         [SerializeField]
         private string targetTypeName;
-        private Type command;
+        public Type Command;
         private Type targetType;
         public event Action<Type, Type> OnPress;
+        private bool isActive;
+        public bool IsActive { get { return isActive; }set { isActive = value;button.interactable = value; } }
         private void Start()
         {
-            button.onClick.AddListener(ButtonListener);
-            command = Utils.GetTypeByName($"Assets.Scripts.Globals.Commands.{commandName}");
-            targetType = Utils.GetTypeByName($"Assets.Scripts.Globals.Commands.{targetTypeName}Target");
+            if (hotkey == KeyCode.None)
+            {
+                IsActive= false;
+            }
+            else
+            {
+                IsActive = true;
+                button.onClick.AddListener(ButtonListener);
+                Command = Utils.GetTypeByName($"Assets.Scripts.Globals.Commands.{commandName}");
+                targetType = Utils.GetTypeByName($"Assets.Scripts.Globals.Commands.{targetTypeName}Target");
+
+            }
         }
         private void Update()
         {
-            if (Input.GetKeyDown(hotkey))
+            if (isActive && Input.GetKeyDown(hotkey))
             {
                 button.Select();
                 button.OnSubmit(null);
@@ -36,7 +47,7 @@ namespace Assets.Scripts.GameEngine.Locals
         }
         private void ButtonListener()
         {
-            OnPress.Invoke(command, targetType);
+            OnPress.Invoke(Command, targetType);
         }
     }
 }

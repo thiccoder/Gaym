@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Assets.Scripts.GameEngine.Effects
 {
-    public class EffectController : MonoBehaviour
+    public class VisualEffectController : MonoBehaviour
     {
         [SerializeField]
         private List<ParticleSystem> fx;

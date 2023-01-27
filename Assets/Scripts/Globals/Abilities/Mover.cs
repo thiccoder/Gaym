@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Globals.Abilities
 {
-    public class Mover : AbilityObject
+    public class Mover : CommandObject
     {
         public float MoveSpeed;
         public float TurnSpeed;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Globals.Abilities
 {
-    public class AbilityObject : ActionObject
+    public class CommandObject : ActionObject
     {
         public Type CommandType;
         public Type TargetType;
