@@ -15,10 +15,5 @@ namespace Assets.Scripts.Globals.Abilities
             CommandType = typeof(Attack);
             TargetType = typeof(UnitTarget);
         }
-
-        public override void OnIssue(Target target, Unit caster)
-        {
-
-        }
     }
 }

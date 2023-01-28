@@ -13,7 +13,7 @@ namespace Assets.Scripts.Globals.Abilities
             CommandType = typeof(Move);
             TargetType = typeof(LocationTarget);
         }
-        public override void OnIssue(Target target,Unit caster) 
+        public override bool OnIssue(Target target,Unit caster) 
         {
             NavMeshAgent agent = ((Widget)caster).GetComponent<NavMeshAgent>();
             agent.isStopped = false;
@@ -22,13 +22,15 @@ namespace Assets.Scripts.Globals.Abilities
             agent.speed = MoveSpeed;
             agent.angularSpeed = TurnSpeed;
             agent.destination = (target as LocationTarget).Value;
+            return true;
         }
-        public override void OnAbort(Unit caster)
+        public override bool OnAbort(Unit caster)
         {
             NavMeshAgent agent = ((Widget)caster).GetComponent<NavMeshAgent>();
             agent.isStopped = true;
+            return true;
         }
-        public override void OnUpdate(Unit caster) 
+        public override bool OnUpdate(Unit caster) 
         {
             /*NavMeshAgent agent = ((Widget)caster).GetComponent<NavMeshAgent>();
             Vector3 delta = agent.steeringTarget - caster.Transform.position;
@@ -45,6 +47,7 @@ namespace Assets.Scripts.Globals.Abilities
                 agent.speed = MoveSpeed;
                 Debug.Log("Resumed moving");
             }*/
+            return true;
         }
     }
 }

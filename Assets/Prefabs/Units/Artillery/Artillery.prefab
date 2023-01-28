@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208184, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Name
-      value: Unit (3) Variant
+      value: Artillery
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208188, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -131,7 +131,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Mover
       value: 
-      objectReference: {fileID: 11400000, guid: 3cd692d7c4378824c8d8210e90484518,
+      objectReference: {fileID: 11400000, guid: 6c55c8863cf6da540aa3301f1d16c0f9,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 589fc012834504b498066d2ec07ddca0, type: 3}

@@ -7,6 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Height
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 3009847048980428584, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Mesh
@@ -76,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Radius
-      value: 0.35
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -96,7 +111,7 @@ PrefabInstance:
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: Size
-      value: 0.35
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}

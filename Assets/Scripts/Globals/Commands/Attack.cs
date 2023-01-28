@@ -7,12 +7,12 @@ namespace Assets.Scripts.Globals.Commands
 {
     public class Attack : Command
     {
-        public Attacker attackObject;
+        public Attacker attacker;
         private UnitTarget target;
         private float time;
         public void Start()
         {
-            Range = attackObject.Range;
+            Range = attacker.Range;
         }
         public override void Abort()
         {
@@ -36,13 +36,17 @@ namespace Assets.Scripts.Globals.Commands
             {
                 if (target != null && target.Value.Alive)
                 {
-                    if (time >= attackObject.Delay)
+                    if (time >= attacker.Delay)
                     {
                         time = 0;
                     }
                     if (time < float.Epsilon) 
                     {
-                        attackObject.OnIssue(target, (Unit)Caster);
+                        if (!attacker.OnIssue(target, (Unit)Caster)) 
+                        {
+                            Issuing = false;
+                            Completed= false;
+                        }
                     }
                 }
                 else

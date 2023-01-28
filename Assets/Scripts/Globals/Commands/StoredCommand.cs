@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Globals.Commands
 {
-    internal struct StoredCommand
+    internal readonly struct StoredCommand
     {
         public readonly Target Target;
         public readonly Type CommandType;

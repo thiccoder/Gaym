@@ -40,7 +40,7 @@ namespace Assets.Scripts.Globals.Commands
             if (Issuing)
             {
                 builder.OnUpdate(Caster);
-                if (currentBuilding.Finished == true)
+                if (currentBuilding.Finished)
                 {
                     Completed = true;
                     Issuing = false;

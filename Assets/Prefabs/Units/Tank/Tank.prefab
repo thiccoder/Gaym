@@ -7,6 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Height
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Direction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3009847048980428584, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Mesh
@@ -15,22 +30,22 @@ PrefabInstance:
     - target: {fileID: 3009847048980428629, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.87
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3009847048980428629, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3009847048980428629, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.58
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3009847048980428629, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -40,7 +55,12 @@ PrefabInstance:
     - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_Height
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -54,13 +74,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
+      propertyPath: Size
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
       propertyPath: Health
       value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: Height
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
@@ -169,4 +194,4 @@ MonoBehaviour:
   Caster: {fileID: 7941117040582467252}
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
-  attackObject: {fileID: 11400000, guid: 6481e172e13d69a448c9960da7ac7412, type: 2}
+  attacker: {fileID: 0}

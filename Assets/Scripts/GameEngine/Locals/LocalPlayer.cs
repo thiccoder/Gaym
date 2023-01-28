@@ -28,6 +28,8 @@ namespace Assets.Scripts.GameEngine.Locals
         private List<CommandButton> commandButtons;
         [SerializeField]
         private RectTransform Selection;
+        [SerializeField]
+        private LayerMask units;
         public HashSet<Widget> Selected = new();
         private bool clearSelection = true;
         private bool selectionChanged = false;
@@ -115,7 +117,7 @@ namespace Assets.Scripts.GameEngine.Locals
                 GameObject gameObj = GetObject();
                 if (currentCommandType == typeof(Smart))
                 {
-                    if (gameObj != Terrain.activeTerrain.gameObject)
+                    if (gameObj != null)
                     {
                         currentCommandType = typeof(Attack);
                         currentTargetType = typeof(UnitTarget);
@@ -152,17 +154,38 @@ namespace Assets.Scripts.GameEngine.Locals
                             }
                             if (commands.Contains(currentCommandType))
                             {
-                                print($"Issuing \"{storedCommand.CommandType.Name}\" to {obj.transform.name}");
                                 CommandQueue commandQueue = obj.GetComponentInParent<CommandQueue>();
-                                if (Input.GetButton("ActionMod"))
+                                if (!Input.GetButton("ActionMod"))
                                 {
-                                    commandQueue.Add(storedCommand);
+                                    commandQueue.Clear();
                                 }
-                                else
+                                if (currentTargetType != typeof(NullTarget) && currentCommandType != typeof(Move))
                                 {
-                                    commandQueue.IssueImmediate(storedCommand);
+                                    Vector3 targetpos;
+                                    if (currentTargetType == typeof(LocationTarget))
+                                    {
+                                        targetpos = loc;
+                                        print($"Issuing (automatic) {obj.transform.name} to \"Move\" to {targetpos}");
+                                        print($"Issuing {obj.transform.name} to \"{storedCommand.CommandType.Name}\" to {targetpos}");
+                                    }
+                                    else
+                                    {
+                                        targetpos = gameObj.transform.position;
+                                        print($"Issuing (automatic) {obj.transform.name} to \"Move\" to {gameObj.transform.name}'s position");
+                                        print($"Issuing {obj.transform.name} to \"{storedCommand.CommandType.Name}\" {gameObj.transform.name}");
+                                    }
+                                    commandQueue.Add(AutoMove(obj.transform.position, targetpos, storedCommand.Of(obj.gameObject).Range));
+                                }
+                                else if (currentCommandType == typeof(Move))
+                                {
+                                    print($"Issuing {obj.transform.name} to \"Move\" to {loc}");
+                                }
+                                else 
+                                {
 
+                                    print($"Issuing {obj.transform.name} to \"{storedCommand.CommandType.Name}\"");
                                 }
+                                commandQueue.Add(storedCommand);
                             }
                         }
                     }
@@ -170,8 +193,7 @@ namespace Assets.Scripts.GameEngine.Locals
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                 canSelect = true;
             }
-            int fps = (int)Mathf.Floor(1.0f / Time.deltaTime);
-            fpsText.text = fps.ToString();
+            fpsText.text = Mathf.CeilToInt(1.0f / Time.deltaTime).ToString();
         }
         private void OnCommandButtonPress(Type commandType, Type targetType)
         {
@@ -190,6 +212,8 @@ namespace Assets.Scripts.GameEngine.Locals
         private void Cast(bool OnlyTerrain)
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            MouseLocation = Vector3.zero;
+            MouseObject = null;
             RaycastHit hitInfo;
             bool rayHit;
             if (OnlyTerrain)
@@ -198,7 +222,7 @@ namespace Assets.Scripts.GameEngine.Locals
             }
             else
             {
-                rayHit = Physics.Raycast(ray, out hitInfo, 1000, LayerMask.GetMask("Default"));
+                rayHit = Physics.Raycast(ray, out hitInfo, 1000, units.value);
             }
             if (rayHit)
             {
@@ -238,13 +262,33 @@ namespace Assets.Scripts.GameEngine.Locals
             }
             Selected.Add(obj);
             obj.GetComponentInChildren<MouseSelectable>().Select();
-            selectionChanged = true;    
+            selectionChanged = true;
         }
         public void Remove(Widget obj)
         {
             Selected.Remove(obj);
             obj.GetComponentInChildren<MouseSelectable>().DeSelect();
             selectionChanged = true;
+        }
+        static private StoredCommand AutoMove(Vector3 start, Vector3 end, Vector2 range)
+        {
+            Vector3 movepos;
+            start.y = 0;
+            end.y = 0;
+            if ((end - start).sqrMagnitude < range.x * range.x)
+            {
+                movepos = Vector3.Normalize(end - start) * -range.x;
+            } 
+            else if ((end - start).sqrMagnitude > range.y * range.y)
+            {
+                movepos = Vector3.Normalize(end - start) * range.y;
+            }
+            else
+            {
+                movepos = Vector3.Normalize(end - start) * float.Epsilon;
+            }
+            movepos.y = 0;
+            return new StoredCommand(typeof(Move), new LocationTarget(start+movepos));
         }
     }
 }

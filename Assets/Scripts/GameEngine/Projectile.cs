@@ -16,7 +16,7 @@ namespace Assets.Scripts.GameEngine
         [HideInInspector]
         public Unit Target;
         [HideInInspector]
-        public Attacker attackObject;
+        public Attacker attacker;
         private float time = 0;
         private float maxHeight;
         private void Start()
@@ -39,7 +39,7 @@ namespace Assets.Scripts.GameEngine
             {
                 try
                 {
-                    attackObject.DealDamage(Dealer, Target);
+                    attacker.DealDamage(Dealer, Target);
                 }
                 finally
                 {

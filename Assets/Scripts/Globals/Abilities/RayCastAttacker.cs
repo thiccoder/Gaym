@@ -7,18 +7,32 @@ namespace Assets.Scripts.Globals.Abilities
     [CreateAssetMenu(fileName = "New Attacker", menuName = "RayCast Attacker", order = 52)]
     public class RayCastAttacker : Attacker
     {
+        [SerializeField]
+        private LayerMask mask;
         public RayCastAttacker() : base()
         {
             CommandType = typeof(Attack);
             TargetType = typeof(UnitTarget);
         }
-        public override void OnIssue(Target target, Unit caster)
+        public override bool OnIssue(Target target, Unit caster)
         {
-            PlayEffects(caster);
-            if (Physics.Raycast(caster.Transform.position, Vector3.Normalize((target as UnitTarget).Value.Transform.position - caster.Transform.position), Range.y))
+            Unit targetUnit = (target as UnitTarget).Value;
+            Vector3 targetPos = targetUnit.Transform.position;
+            if (IsInRange(targetPos, caster))
             {
-                DealDamage(caster, (target as UnitTarget).Value);
+                Vector3 casterPos = caster.Transform.position;
+                PlayEffects(caster);
+                caster.Transform.LookAt(targetPos);
+                Vector3 dir = Vector3.Normalize(targetPos- casterPos);
+                bool tooClose = Physics.Raycast(casterPos, dir, Range.x,mask.value);
+                bool inRange = Physics.Raycast(casterPos + dir * Range.x, dir, Range.y,mask.value);
+                if (!tooClose && inRange)
+                {
+                    DealDamage(caster, targetUnit);
+                    return true;
+                }
             }
+            return false;
         }
     }
 }

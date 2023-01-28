@@ -14,14 +14,21 @@ namespace Assets.Scripts.Globals.Abilities
             CommandType = typeof(Attack);
             TargetType = typeof(UnitTarget);
         }
-        public override void OnIssue(Target target, Unit caster)
+        public override bool OnIssue(Target target, Unit caster)
         {
-            PlayEffects(caster);
-            Projectile projectile = Instantiate(ProjectilePrefab, caster.Transform.position, caster.Transform.rotation).GetComponent<Projectile>();
-            projectile.TargetPosition = (target as UnitTarget).Value.Transform.position;
-            projectile.attackObject = this;
-            projectile.Dealer = caster;
-            projectile.Target = (target as UnitTarget).Value;
+            Unit targetUnit = (target as UnitTarget).Value;
+            Vector3 targetPos = targetUnit.Transform.position;
+            if (IsInRange(targetPos, caster))
+            {
+                PlayEffects(caster);
+                Projectile projectile = Instantiate(ProjectilePrefab, caster.Transform.position, caster.Transform.rotation).GetComponent<Projectile>();
+                projectile.TargetPosition = targetPos;
+                projectile.attacker = this;
+                projectile.Dealer = caster;            
+                projectile.Target = targetUnit;
+                return true;
+            }
+            return false;
         }
     }
 }

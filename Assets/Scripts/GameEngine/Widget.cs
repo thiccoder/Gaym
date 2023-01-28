@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Globals;
 using UnityEngine;
 using System;
+using Assets.Scripts.Globals.Commands;
+
 namespace Assets.Scripts.GameEngine
 {
     public class Widget : MonoBehaviour
@@ -39,9 +41,7 @@ namespace Assets.Scripts.GameEngine
         public void Awake()
         {
             modelOffset = Model.transform.localPosition;
-            if (_unit is null)
-            {
-                _unit = new Unit(this)
+            _unit ??= new Unit(this)
                 {
                     Name = Name,
                     Tooltip = Tooltip,
@@ -52,7 +52,6 @@ namespace Assets.Scripts.GameEngine
                     Stamina = Stamina,
                     StaminaRegen = StaminaRegen
                 };
-            }
         }
         public void Update()
         {

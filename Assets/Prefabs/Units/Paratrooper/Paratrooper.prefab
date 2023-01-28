@@ -7,6 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Height
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 488443092323467449, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3009847048454826969, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -271,24 +286,4 @@ MonoBehaviour:
   Caster: {fileID: 7809816201268457362}
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
-  attackObject: {fileID: 11400000, guid: c19659e207e303547ad7b2a93ed36feb, type: 2}
---- !u!1 &7809816201350848245 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3009847048980428628, guid: 589fc012834504b498066d2ec07ddca0,
-    type: 3}
-  m_PrefabInstance: {fileID: 5019003971980224929}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &1161795150
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7809816201350848245}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6500305351059371683, guid: 62b338e2248fd4f44a49824671573881, type: 3}
+  attacker: {fileID: 0}

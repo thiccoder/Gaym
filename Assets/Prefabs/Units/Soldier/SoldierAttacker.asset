@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  Range: {x: 20, y: 5}
+  Range: {x: 0, y: 20}
   Delay: 0.5
   Damage: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 1

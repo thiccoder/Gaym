@@ -17,4 +17,4 @@ MonoBehaviour:
   Range: {x: Infinity, y: 0}
   Delay: 0
   MoveSpeed: 10
-  TurnSpeed: 120
+  TurnSpeed: 240

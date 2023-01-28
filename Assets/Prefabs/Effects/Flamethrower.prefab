@@ -4821,7 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6789631232680638855}
-  - component: {fileID: 3484581217106762522}
+  - component: {fileID: 3162953008019736373}
   m_Layer: 0
   m_Name: Flamethrower
   m_TagString: Untagged
@@ -4846,7 +4846,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!114 &3484581217106762522
+--- !u!114 &3162953008019736373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

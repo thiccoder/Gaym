@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28976e65f3714154c84798488c726cc9, type: 3}
-  m_Name: ArtilleryAtatacker
+  m_Name: ArtilleryAttacker
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  Range: {x: 20, y: 5}
+  Range: {x: 5, y: 50}
   Delay: 1
   Damage: 1
   ProjectilePrefab: {fileID: 1139926325755694168, guid: 34bc8194632bcd546ae8d00fdc2d1831,

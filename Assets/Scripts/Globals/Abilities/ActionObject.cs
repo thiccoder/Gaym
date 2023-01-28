@@ -6,17 +6,19 @@ namespace Assets.Scripts.Globals.Abilities
 {
     public class ActionObject : ScriptableObject
     {
-        public virtual void OnIssue(Target target, Unit caster)
+        public virtual bool OnIssue(Target target, Unit caster)
+        {
+            return true;
+        }
+        public virtual bool OnAbort(Unit caster) 
         {
 
+            return true;
         }
-        public virtual void OnAbort(Unit caster) 
-        {
-            
-        }
-        public virtual void OnUpdate(Unit caster)
+        public virtual bool OnUpdate(Unit caster)
         {
 
+            return true;
         }
         public void PlayEffects(Unit caster)
         {

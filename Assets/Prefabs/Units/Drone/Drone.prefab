@@ -75,6 +75,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208178, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
       propertyPath: m_AgentTypeID
       value: 658490984
       objectReference: {fileID: 0}
@@ -232,23 +242,3 @@ MonoBehaviour:
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
   attackObject: {fileID: 11400000, guid: ecba431abc0aaee438fad76666311e98, type: 2}
---- !u!1 &6092825975806655991 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3009847048980428628, guid: 589fc012834504b498066d2ec07ddca0,
-    type: 3}
-  m_PrefabInstance: {fileID: 9028326371348581027}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &7643355926775942858
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6092825975806655991}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2403283451262950110, guid: 8b920cff83d4b434cb19a14af5bcda31, type: 3}
