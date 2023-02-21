@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 571069262455598084, guid: 0f8572aa27497c44d88cd53c66be2747,
         type: 3}
       propertyPath: m_Name
-      value: Soldier
+      value: Sniper
       objectReference: {fileID: 0}
     - target: {fileID: 571069262455598095, guid: 0f8572aa27497c44d88cd53c66be2747,
         type: 3}
@@ -92,6 +92,12 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 6868833794438673307, guid: 0f8572aa27497c44d88cd53c66be2747,
+        type: 3}
+      propertyPath: attacker
+      value: 
+      objectReference: {fileID: 11400000, guid: 029015c422f514144912b13347bd8bf6,
+        type: 2}
     - target: {fileID: 6868833794438673307, guid: 0f8572aa27497c44d88cd53c66be2747,
         type: 3}
       propertyPath: attackObject

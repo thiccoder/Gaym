@@ -7,13 +7,13 @@ namespace Assets.Scripts.GameEngine.Locals.UI
     {
         [SerializeField]
         private RectTransform bar;
+        [HideInInspector]
         private float MaxSize;
         private float CurSize = 0;
         public float Value { get { return CurSize / MaxSize; } set { CurSize = value * MaxSize; bar.sizeDelta = new Vector2(CurSize, 0); } }
         void Start()
         {
             MaxSize = bar.sizeDelta.x;
-            print(MaxSize);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Assets.Scripts.GameEngine.Locals
         private void Start()
         {
             uibar = Instantiate(uiBarPrefab).GetComponent<UIBar>();
-            uibar.transform.SetParent(FindObjectOfType<Canvas>().transform);
+            uibar.transform.SetParent(FindObjectOfType<Canvas>().transform.Find("Runtime").Find("Healthbars"));
         }
         private void Update()
         {

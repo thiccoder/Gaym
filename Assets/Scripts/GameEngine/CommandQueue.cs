@@ -39,7 +39,6 @@ namespace Assets.Scripts.GameEngine
                         print($"Reissuing (automatic) {transform.name} to \"Move\" to {(target as UnitTarget).Value.Transform.name}'s position");
                         print($"Reissuing {transform.name} to \"{currentStored.CommandType.Name}\" {(target as UnitTarget).Value.Transform.name}");
                     }
-                    print($"Reissuing {transform.name} to \"{currentStored.CommandType.Name}\"");
                     StoredCommand automove = AutoMove(transform.position, targetpos, current.Range);
                     commands.Enqueue(automove);
                     commands.Enqueue(currentStored);

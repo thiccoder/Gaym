@@ -59,6 +59,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
         type: 3}
+      propertyPath: Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
+        type: 3}
       propertyPath: Health
       value: 20
       objectReference: {fileID: 0}
@@ -170,4 +175,4 @@ MonoBehaviour:
   Caster: {fileID: 2027021299201781238}
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
-  attackObject: {fileID: 11400000, guid: 49e35b068b7fc234a9ae255bb84ae55f, type: 2}
+  attacker: {fileID: 0}

@@ -296,4 +296,4 @@ MonoBehaviour:
   Caster: {fileID: 6092825975586000016}
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
-  attackObject: {fileID: 11400000, guid: 9ad25ac00147acd458b4cf6aaf3dbf34, type: 2}
+  attacker: {fileID: 11400000, guid: 9ad25ac00147acd458b4cf6aaf3dbf34, type: 2}

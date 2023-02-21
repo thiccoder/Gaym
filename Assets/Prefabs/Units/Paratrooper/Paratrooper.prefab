@@ -286,4 +286,18 @@ MonoBehaviour:
   Caster: {fileID: 7809816201268457362}
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
-  attacker: {fileID: 0}
+  attacker: {fileID: 11400000, guid: c19659e207e303547ad7b2a93ed36feb, type: 2}
+--- !u!114 &7213268243664823742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7809816201268457369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456527af2f9b2774eb4ea09ff391a7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EffectPrefab: {fileID: 9206388443407949152, guid: ab8a4c6325667544a82d312f275eb5b6,
+    type: 3}

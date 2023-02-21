@@ -8,30 +8,28 @@ namespace Assets.Scripts.Globals.Abilities
     {
         public virtual bool OnIssue(Target target, Unit caster)
         {
+            PlayEffects(caster);
             return true;
         }
         public virtual bool OnAbort(Unit caster) 
         {
-
+            StopEffects(caster);
             return true;
         }
         public virtual bool OnUpdate(Unit caster)
         {
-
             return true;
         }
         public void PlayEffects(Unit caster)
         {
-            VisualEffectLinker fxlinker = caster.Transform.GetComponent<VisualEffectLinker>();
-            if (fxlinker is not null)
+            if (caster.Transform.TryGetComponent<VisualEffectLinker>(out var fxlinker))
             {
                 fxlinker.Play();
             }
         }
         public void StopEffects(Unit caster)
         {
-            VisualEffectLinker fxlinker = caster.Transform.GetComponent<VisualEffectLinker>();
-            if (fxlinker is not null)
+            if (caster.Transform.TryGetComponent<VisualEffectLinker>(out var fxlinker))
             {
                 fxlinker.Stop();
             }

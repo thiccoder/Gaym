@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthCost: 0
   StaminaCost: 0
-  Range: {x: 0, y: 1}
+  Range: {x: 0, y: 5}
   Delay: 2
   Damage: 35
   ProjectilePrefab: {fileID: 1139926325755694168, guid: 34bc8194632bcd546ae8d00fdc2d1831,

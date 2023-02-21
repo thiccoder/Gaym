@@ -2,7 +2,6 @@
 	Properties {
 		_LineColor ("Line Color", Color) = (1,1,1,1)
 		_CellColor ("Cell Color", Color) = (0,0,0,0)
-		[PerRendererData] _MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_GridSizeX("Grid Size X", float) = 10
 		_GridSizeY("Grid Size Y", float) = 10
 		_LineSize("Line Size", Range(0,1)) = 0.15
@@ -17,7 +16,6 @@
 
 		#pragma target 3.0
 
-		sampler2D _MainTex;
 
 		struct Input {
 			float2 uv_MainTex;

@@ -82,6 +82,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3326409179393616444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5554086041776590871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571069262455598084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456527af2f9b2774eb4ea09ff391a7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EffectPrefab: {fileID: 9206388443407949152, guid: ab8a4c6325667544a82d312f275eb5b6,
+    type: 3}
 --- !u!114 &6868833794438673307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +113,7 @@ MonoBehaviour:
   Caster: {fileID: 571069262455598095}
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
-  attackObject: {fileID: 11400000, guid: 769efff5ccabd7a4c995363abdc56943, type: 2}
+  attacker: {fileID: 11400000, guid: 769efff5ccabd7a4c995363abdc56943, type: 2}
 --- !u!114 &571069262455598095 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3009847049028208179, guid: 589fc012834504b498066d2ec07ddca0,
