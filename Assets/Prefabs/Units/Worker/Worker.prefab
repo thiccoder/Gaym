@@ -273,3 +273,27 @@ MonoBehaviour:
   CanAbort: 1
   Range: {x: Infinity, y: Infinity}
   collectTime: 0
+  agent: {fileID: 0}
+  Mover: {fileID: 0}
+  ResourseManager: {fileID: 0}
+--- !u!114 &6063028873152931883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190761228825356940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b4a1c4358a73d4b930851a5e44b5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Completed: 0
+  Issuing: 0
+  Caster: {fileID: 0}
+  CanAbort: 1
+  Range: {x: Infinity, y: Infinity}
+  collectTime: 5
+  agent: {fileID: 0}
+  Mover: {fileID: 0}
+  ResourseManager: {fileID: 0}

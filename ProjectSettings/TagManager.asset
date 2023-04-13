@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - DEBUG
+  - base
+  - resourses
+  - door
   layers:
   - Default
   - TransparentFX

@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8819763141301485431}
   - component: {fileID: 6986644583242750951}
+  - component: {fileID: -9078746859082014394}
+  - component: {fileID: -5530644131448394314}
   m_Layer: 0
   m_Name: Bunch of plastic var 1
-  m_TagString: Untagged
+  m_TagString: resourses
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +48,47 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.85629684, y: 1.2368102, z: 0.9441514}
   m_Center: {x: 0.07185158, y: 0.3622952, z: -0.027924314}
+--- !u!114 &-9078746859082014394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635234332703708245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ced98b84d207634bb7f4e7e6e493a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Height: 1
+  DeltaHeight: 0
+  Size: 1
+  modelOffset: {x: 0, y: 0, z: 0}
+  Health: 100
+  MaxHealth: 100
+  HealthRegen: 0
+  Stamina: 0
+  MaxStamina: 0
+  StaminaRegen: 0
+  Name: Bunch of plastic
+  Tooltip: 
+  Model: {fileID: 4635234332703708245}
+--- !u!114 &-5530644131448394314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635234332703708245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2462de16d0c89e24481d2cde864f52d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiBarPrefab: {fileID: 422537322707835942, guid: 4d0cf36be9338d943b398de4c41d3c0e,
+    type: 3}
+  widget: {fileID: -9078746859082014394}
+  barHeight: 2
 --- !u!1 &5233684106113771482
 GameObject:
   m_ObjectHideFlags: 0
